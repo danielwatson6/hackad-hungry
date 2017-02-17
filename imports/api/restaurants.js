@@ -8,14 +8,19 @@ export default const Restaurants = new Collection('restaurants')
 
 Meteor.methods({
   'restaurants.insert'(restaurant) {
-    // TODO: check for user
+    // checks for user
+    if (Meteor.userId() == null)
+      throw new Meteor.Error(403, 'Unauthorized')
+      
+
   	check(restaurant, {
       name: Matchers.NonEmptyString,
       minimumPrice: Number,
       openingTimes: String,
-      location: String,
+      locationof: String,
       deliveryTime: String,
     })
+
     // Check that restaurant is not in system
   	if (Restaurants.(findOne{name: restaurant.name}))
   		throw new Meteor.Error(400, 'Bad request')
@@ -27,6 +32,9 @@ Meteor.methods({
   },
   
   'restaurants.update'(attributes) {
-    // TODO: fill this
+    Restaurants.minimumPrice = Number
+    Restaurants.openingTimes = String
+    Restaurants.locationof = String
+    Restaurants.deliveryTime = String
   }
 })
