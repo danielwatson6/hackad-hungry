@@ -2,7 +2,22 @@ import React from 'react'
 import { FlowRouter } from 'meteor/kadira:flow-router'
 import { mount } from 'react-mounter'
 
-import App from './components/App.jsx'
+import Layout from './components/Layout.jsx'
+import Campaigns from './components/Campaigns.jsx'
+import Campaign from './components/Campaign.jsx'
+
+
+//=== UI handled by FlowRouter ===//
+
+const pathDidChange = (newPath) => {
+  // gets called whenever the path changes
+}
+
+Tracker.autorun(function() {
+    FlowRouter.watchPathChange()
+    const path = FlowRouter.current().path
+    pathDidChange(path)
+})
 
 
 //=== Helper functions and abstractions ===//

@@ -1,17 +1,40 @@
-import React from 'react';
+import { Meteor } from 'meteor/meteor'
+import React, { Component, PropTypes } from 'react'
+import { createContainer } from 'meteor/react-meteor-data'
+import { FlowRouter } from 'meteor/kadira:flow-router'
 
-class Campaign extends React.Component {
-	render(){
-		const campaign = this.props
-		return (
-			<ul className="campaign">
-				<li className="campaign_name">{campaign.name}</li>
-				<li className="campaign_owner">{campaign.owner}</li>
-				<li className="campaign_restaurant">{campaign.restaurant}</li>
-				<li className="campaign_deadline">{campaign.deadline}</li>
-			</ul>
-		);
-	}
+
+const dummyCampaign = {
+  _id: 1,
+  name: 'somename',
+  owner: 'owner1',
+  deadline: 'somedeadline',
+  restaurant: 'somerestaurant',
+  status: 'isOpen',
 }
 
-export default Campaign;
+
+class Campaign extends Component {
+  
+  render() {
+    return (
+      <div id="Campaign">
+        {/* TODO: make this nice */}
+        <h1>{this.props.campaign.name}</h1>
+      </div>
+    )
+  }
+}
+
+Campaign.propTypes = {
+  subscriptionReady: PropTypes.bool,
+}
+
+export default createContainer((params) => {
+  return {
+    // TODO: fetch from collection
+    campaign: dummyCampaign,
+    subscriptionReady: FlowRouter.subsReady('campaign'),
+    currentUser: Meteor.user(),
+  }
+}, Campaign)

@@ -1,2 +1,2 @@
-import '/imports/client/vendor/bootstrap/js'
-import '/imports/client/routes.jsx'
+import '/imports/ui/vendor/bootstrap/js'
+import '/imports/ui/routes.jsx'
