@@ -11,7 +11,6 @@ Meteor.methods({
     // checks for user
     if (Meteor.userId() == null)
       throw new Meteor.Error(403, 'Unauthorized')
-      
 
   	check(restaurant, {
       name: Matchers.NonEmptyString,

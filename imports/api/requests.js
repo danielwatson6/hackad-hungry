@@ -6,23 +6,24 @@ import { Collection, Matchers } from './utils'
 
 export default const Requests = new Collection('requests')
 
+
 Meteor.methods({
-  'requests.insert'(request) {
+  'requests.insert'(message) {
     // checks for user
     if (Meteor.userId() == null)
       throw new Meteor.Error(403, 'Unauthorized')  
 
-  	check(request, {
-      message: Matchers.NonEmptyString,
-    })
+  	check(message, Matchers.NonEmptyString)
     
     // Fill in other attributes and push to db
-    const now = new Date()
-    request.sentAt = now
+    const request = { message }
+    request.createdAt = new Date()
     Requests.insert(request)
   },
   
   'restaurants.update'(attributes) {
     Requests.message = Matchers.NonEmptyString
-  }
+    
+  },
 })
+

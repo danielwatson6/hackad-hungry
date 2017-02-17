@@ -17,13 +17,11 @@ const checkIfOwner = (_id) => {
 
 
 Meteor.methods({
-  'contributions.insert'(contribution) {
+  'contributions.insert'(amount) {
     // User must be logged in
     check(Meteor.userId(), Matchers.ID)
     // Validate user input
-    check(contribution, {
-      amount: Matchers.PositiveNumber,
-    })
+    check(amount, Matchers.PositiveNumber)
     // Fill in other attributes and push to db
     const now = new Date()
     contribution.createdAt = now
@@ -33,8 +31,15 @@ Meteor.methods({
   
   'contributions.changeAmount'(_id, amount) {
     checkIfOwner(Meteor.userId())
-    Contributions.update(_id, {$set: {amount} })
-  }
+    // TODO: notify all participants
+    Contributions.update(_id, {$set: {amount, lastEditAt: new Date()} })
+  },
+  
+  'contributions.remove'(_id) {
+    checkIfOwner(Meteor.userId())
+    // TODO: notify all participants
+    Contributions.remove(_id)
+  },
 })
 
 if (Meteor.isServer) {
