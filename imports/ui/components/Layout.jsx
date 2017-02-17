@@ -8,25 +8,19 @@ import AccountsUIWrapper from './AccountsUIWrapper.jsx'
 class Layout extends Component {
  
   render() {
-    let content = ''
+    let content = (<AccountsUIWrapper />)
     
-    //if (this.props.currentUser) {
-    if (true) {
+    if (this.props.currentUser) {
       content = (
         <div id="AppContent">
           <nav className="navbar navbar-inverse bg-inverse">
-            <div className="container">
-              <a href="/" className="navbar-brand">Hungry@NYUAD</a>
-              <ul className="nav navbar-nav">
-                <li className="pull-right">
-                  <AccountsUIWrapper />
-                </li>
-              </ul>
-            </div>
+            <a href="/" className="navbar-brand">Hungry@NYUAD</a>
+            <ul className="navbar-nav mr-auto">
+              <li>Foo</li>
+            </ul>
+            <AccountsUIWrapper />
           </nav>
-          <div id="layoutContainer" className="container">
-            {this.props.content()}
-          </div>
+          {this.props.content()}
         </div>
       )
     }
