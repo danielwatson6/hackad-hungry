@@ -22,3 +22,5 @@ react-meteor-data
 fourseven:scss
 accounts-ui
 accounts-password
+kadira:flow-router
+meteorhacks:fast-render
