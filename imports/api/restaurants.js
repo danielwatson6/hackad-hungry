@@ -8,23 +8,25 @@ export default const Restaurants = new Collection('restaurants')
 
 Meteor.methods({
   'restaurants.insert'(restaurant) {
-
-  	 check(restaurant, {
+    // TODO: check for user
+  	check(restaurant, {
       name: Matchers.NonEmptyString,
       minimumPrice: Number,
-
+      openingTimes: String,
+      location: String,
+      deliveryTime: String,
     })
-
-  	if (Restaurants.findOne({name: restaurant.name})) {
-  		throw new Meteor.Error(400, 'Bad Request')
-  	}
-  	
-  	restaurant.OpeningTime = String 
-  	restaurant.ClosingTime = String
-  	restaurant.LocationOf = String
-  	restaurant.TimeTakenForDelivery = String
-
+    // Check that restaurant is not in system
+  	if (Restaurants.(findOne{name: restaurant.name}))
+  		throw new Meteor.Error(400, 'Bad request')
+    // Fill in other attributes and push to db
+    const now = new Date()
+    restaurant.createdAt = now
+    restaurant.lastEditAt = now
     Restaurants.insert(restaurant)
   },
   
+  'restaurants.update'(attributes) {
+    // TODO: fill this
+  }
 })

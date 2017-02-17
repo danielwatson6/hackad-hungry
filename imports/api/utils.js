@@ -26,4 +26,9 @@ export const Matchers = {
     check(n, Number)
     return n !== 0
   })
+  
+  PositiveNumber: Match.Where((n) => {
+    check(n, Number)
+    return n > 0
+  })
 }
