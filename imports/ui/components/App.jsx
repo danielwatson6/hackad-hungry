@@ -7,11 +7,13 @@ export default class App extends Component {
  
   render() {
     return (
-      <nav className="navbar navbar-inverse bg-inverse">
-        <a href="/" className="navbar-brand">Hungry@NYUAD</a>
-      </nav>
-      <div className="component">
-        {/* <Campaigns /> */}
+      <div className="App">
+        <nav className="navbar navbar-inverse bg-inverse">
+          <a href="/" className="navbar-brand">Hungry@NYUAD</a>
+        </nav>
+        <div className="component">
+          {/* <Campaigns /> */}
+        </div>
       </div>
     );
   }
