@@ -3,44 +3,13 @@ import React, { Component, PropTypes } from 'react'
 import { createContainer } from 'meteor/react-meteor-data'
 
 import CampaignItem from './CampaignItem'
+import CampaignsCollection from '../../api/campaigns'
 
 
-// Dummy data for testing while database is unavailable
-const dummyCampaigns = [
-  {
-    _id: 1,
-    name: 'somename',
-    owner: 'owner1',
-    deadline: 'somedeadline',
-    restaurant: 'somerestaurant',
-    status: 'isOpen',
-  },
-  {
-    _id: 2,
-    name: 'somename2',
-    owner: 'owner2',
-    deadline: "somedeadline2",
-    restaurant: 'somerestaurant2',
-    status: 'isOpen',
-  },
-  {
-    _id: 3,
-    name: 'somename3',
-    owner: 'owner3',
-    deadline: "somedeadline3",
-    restaurant: 'somerestaurant3',
-    status: 'isOpen',
-  },
-  {
-    _id: 4,
-    name: 'somename4',
-    owner: 'owner4',
-    deadline: "somedeadline4",
-    restaurant: 'somerestaurant4',
-    status: 'isOpen',
-  },
-]
-
+const test = () => {
+  console.log(CampaignsCollection.find().fetch())
+  return CampaignsCollection.find().fetch()
+}
 
 class Campaigns extends Component {
 	
@@ -68,7 +37,7 @@ Campaigns.propTypes = {
 export default createContainer(() => {
 	return {
 		// TODO: fetch from collection
-		campaigns: dummyCampaigns,
+		campaigns: test(),
 		currentUser: Meteor.user(),
 	}
 }, Campaigns)

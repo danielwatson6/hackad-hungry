@@ -4,7 +4,7 @@ import { check } from 'meteor/check'
 import { Collection, Matchers } from './utils'
 
 
-export default const Campaigns = new Collection('campaigns')
+const Campaigns = new Collection('campaigns')
 
 
 const checkIfOwner = (_id) => {
@@ -48,8 +48,17 @@ Meteor.methods({
 
 
 if (Meteor.isServer) {
+  
   Meteor.publish('campaigns', () => {
-    check(Meteor.userId(), Matchers.ID)
-    return Campaigns.find({$and: {isOpen: true, deadline:{$gt: new Date()}} })
+    //check(this.userId, Matchers.ID)
+    console.log(Campaigns.find({$and: {isOpen: true, } }))
+    return Campaigns.find({$and: {isOpen: true, } })
+  })
+  
+  Meteor.publish('campaign', (_id) => {
+    //check(this.userId, Matchers.ID)
+    return Campaigns.findOne(_id)
   })
 }
+
+export default Campaigns

@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor'
 import { Mongo } from 'meteor/mongo'
-import { check } from 'meteor/check'
+import { Match, check } from 'meteor/check'
 
 
 export class Collection extends Mongo.Collection {

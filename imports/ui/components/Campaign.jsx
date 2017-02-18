@@ -3,15 +3,7 @@ import React, { Component, PropTypes } from 'react'
 import { createContainer } from 'meteor/react-meteor-data'
 import { FlowRouter } from 'meteor/kadira:flow-router'
 
-
-const dummyCampaign = {
-  _id: 1,
-  name: 'somename',
-  owner: 'owner1',
-  deadline: 'somedeadline',
-  restaurant: 'somerestaurant',
-  status: 'isOpen',
-}
+import Campaigns from '../../api/campaigns'
 
 
 class Campaign extends Component {
@@ -33,7 +25,7 @@ Campaign.propTypes = {
 export default createContainer((params) => {
   return {
     // TODO: fetch from collection
-    campaign: dummyCampaign,
+    campaign: Campaigns.findOne(params._id),
     subscriptionReady: FlowRouter.subsReady('campaign'),
     currentUser: Meteor.user(),
   }

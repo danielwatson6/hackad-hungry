@@ -45,12 +45,12 @@ const render = (func) => {
 
 FlowRouter.route('/campaign/:_id', {
   name: 'campaigns',
-  subscriptions: subscribe('campaigns'),
-  action: render(() => { return <Campaign /> }),
+  subscriptions: subscribe('campaigns', (params) => params._id),
+  action: render(() => ( <Campaign _id={params._id} /> )),
 })
 
 FlowRouter.route('/', {
   name: 'campaigns',
   subscriptions: subscribe('campaigns'),
-  action: render(() => { return <Campaigns /> }),
+  action: render(() => ( <Campaigns /> )),
 })
