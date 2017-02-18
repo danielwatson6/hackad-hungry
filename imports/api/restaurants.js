@@ -4,7 +4,7 @@ import { check } from 'meteor/check'
 import { Collection, Matchers } from './utils'
 
 
-export default const Restaurants = new Collection('restaurants')
+const Restaurants = new Collection('restaurants')
 
 Meteor.methods({
   'restaurants.insert'(restaurant) {
@@ -37,3 +37,6 @@ Meteor.methods({
     Restaurants.deliveryTime = String
   }
 })
+
+
+export default Restaurants

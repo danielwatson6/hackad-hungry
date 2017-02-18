@@ -4,7 +4,7 @@ import { check } from 'meteor/check'
 import { Collection, Matchers } from './utils'
 
 
-export default const Requests = new Collection('requests')
+const Requests = new Collection('requests')
 
 
 Meteor.methods({
@@ -27,3 +27,5 @@ Meteor.methods({
   },
 })
 
+
+export default Requests

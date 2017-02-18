@@ -4,7 +4,7 @@ import { check } from 'meteor/check'
 import { Collection, Matchers } from './utils'
 
 
-export default const Contributions = new Collection('contributions')
+const Contributions = new Collection('contributions')
 
 
 const checkIfOwner = (_id) => {
@@ -19,7 +19,7 @@ const checkIfOwner = (_id) => {
 Meteor.methods({
   'contributions.insert'(amount) {
     // User must be logged in
-    check(Meteor.userId(), Matchers.ID)
+    check(Meteor.userId(), Matchers.NonEmptyString)
     // Validate user input
     check(amount, Matchers.PositiveNumber)
     // Fill in other attributes and push to db
@@ -44,8 +44,11 @@ Meteor.methods({
 
 if (Meteor.isServer) {
   Meteor.publish('contributions', () => {
-    check(Meteor.userId(), Matchers.ID)
+    check(Meteor.userId(), Matchers.NonEmptyString)
     // TODO: make this secure
     return 
   })
 }
+
+
+export default Contributions

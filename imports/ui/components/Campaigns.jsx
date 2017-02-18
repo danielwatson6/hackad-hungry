@@ -6,11 +6,6 @@ import CampaignItem from './CampaignItem'
 import CampaignsCollection from '../../api/campaigns'
 
 
-const test = () => {
-  console.log(CampaignsCollection.find().fetch())
-  return CampaignsCollection.find().fetch()
-}
-
 class Campaigns extends Component {
 	
   renderCampaigns() {
@@ -37,7 +32,7 @@ Campaigns.propTypes = {
 export default createContainer(() => {
 	return {
 		// TODO: fetch from collection
-		campaigns: test(),
+		campaigns: CampaignsCollection.find().fetch(),
 		currentUser: Meteor.user(),
 	}
 }, Campaigns)
