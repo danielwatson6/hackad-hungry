@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor'
 import { check } from 'meteor/check'
 
-import { Collection, Matchers, mongoID } from './utils'
+import { Collection, Matchers, idQuery } from './utils'
 
 
 const Campaigns = new Collection('campaigns')
@@ -96,7 +96,7 @@ if (Meteor.isServer) {
   
   Meteor.publish('campaign', function(_id) {
     check(this.userId, Matchers.ID)
-    return Campaigns.find(mongoID(_id))
+    return Campaigns.find(idQuery(_id))
   })
 }
 

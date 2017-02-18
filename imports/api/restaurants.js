@@ -18,7 +18,7 @@ Meteor.methods({
       deliveryTime: String,
     })
     // Check that restaurant is not already in the system
-  	if (Restaurants.(findOne{name: restaurant.name}))
+  	if (Restaurants.findOne({name: restaurant.name}))
   		throw new Meteor.Error(400, 'Restaurant already registered.')
     // Fill in other attributes and push to db
     const now = new Date()

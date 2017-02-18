@@ -33,4 +33,13 @@ export const Matchers = {
   }),
 }
 
-export const mongoID = (_id) => (new Mongo.ObjectID(_id))
+export const idQuery = (_id) => {
+  const q = {_id: {$in: [_id]}}
+  try {
+    objectID = new Mongo.ObjectID(_id)
+    q._id['$in'].push(objectID)
+  }
+  finally {
+    return q
+  }
+}

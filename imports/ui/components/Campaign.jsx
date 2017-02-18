@@ -13,7 +13,7 @@ class Campaign extends Component {
     if (!this.props.subscriptionReady)
       return (<p>Loading...</p>) // TODO: make a component for this
     // TODO: add not found error
-    const campaign = this.props.campaign
+    const campaign = this.props.campaign[0]
     return (
       <div id="Campaign">
         <CampaignItem key={campaign._id} campaign={campaign} />
@@ -23,14 +23,14 @@ class Campaign extends Component {
 }
 
 Campaign.propTypes = {
-  campaign: PropTypes.object.isRequired,
+  campaign: PropTypes.array.isRequired,
   currentUser: PropTypes.object,
   subscriptionReady: PropTypes.bool,
 }
 
 export default createContainer((params) => {
   return {
-    campaign: Campaigns.find().fetch()[0],
+    campaign: Campaigns.find().fetch(),
     subscriptionReady: FlowRouter.subsReady('campaign'),
     currentUser: Meteor.user(),
   }
