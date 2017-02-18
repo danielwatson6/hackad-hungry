@@ -4,7 +4,7 @@ import { check } from 'meteor/check'
 import { Collection, Matchers } from './utils'
 
 
-export default const Campaigns = new Collection('campaigns')
+const Campaigns = new Collection('campaigns')
 
 
 const checkIfOwner = (_id) => {
@@ -19,11 +19,11 @@ const checkIfOwner = (_id) => {
 Meteor.methods({
   'campaigns.insert'(campaign, initial_amount) {
     // User must be logged in
-    check(Meteor.userId(), Matchers.ID)
+    check(Meteor.userId(), Matchers.NonEmptyString)
     // Validate user input
     check(campaign, {
       name: String,
-      restaurant: Matchers.ID,
+      restaurant: Matchers.NonEmptyString,
       deadline: Date,
     })
     // Create initial contribution
@@ -43,7 +43,7 @@ Meteor.methods({
   
   'campaigns.addContribution'(_id, amount) {
     const uid = Meteor.userId()
-    check(uid, Matchers.ID)
+    check(uid, Matchers.NonEmptyString)
     Meteor.call('contributions.insert', amount, (err, res) => {
       if (err) throw err
       // Reject if user already has a contribution in campaign
@@ -51,7 +51,7 @@ Meteor.methods({
         throw new Meteor.Error(400, 'Bad request')
       // TODO: notify all participants
       Campaigns.update(_id, {
-        $push: {contributions: res._id }
+        $push: {contributions: res._id },
         $set: {lastEditAt: new Date()},
       })
     })
@@ -90,13 +90,21 @@ Meteor.methods({
 
 
 if (Meteor.isServer) {
-  Meteor.publish('campaigns', () => {
-    check(Meteor.userId(), Matchers.ID)
+  
+  Meteor.publish('campaigns', function() {
+    check(this.userId(), Matchers.NonEmptyString)
     // Publish when the user is a participant, OR when
     // the campaign is both open and not past the deadline
     return Campaigns.find({$or: {
-      contributions: {$elemMatch: {owner: Meteor.userId()} },
+      contributions: {$elemMatch: {owner: this.userId()} },
       $and: {isOpen: true, deadline: {$gt: new Date()}},
     }})
   })
+  
+  Meteor.publish('campaign', function(_id) {
+    check(this.userId(), Matchers.NonEmptyString)
+    return Campaigns.findOne(_id)
+  })
 }
+
+export default Campaigns
