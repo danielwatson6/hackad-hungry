@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor'
 import { check } from 'meteor/check'
 
-import { Collection, Matchers } from './utils'
+import { Collection, Matchers, idQuery } from './utils'
 
 
 const Campaigns = new Collection('campaigns')
@@ -17,31 +17,70 @@ const checkIfOwner = (_id) => {
 
 
 Meteor.methods({
-  'campaigns.insert'(campaign) {
-    // User must be logged in
+  'campaigns.insert'(campaign, initial_amount) {
     check(Meteor.userId(), Matchers.ID)
-    // Validation
     check(campaign, {
       name: String,
       restaurant: Matchers.ID,
       deadline: Date,
-      minimumPrice: Number,
     })
-    // Fill in other attributes and push to db
-    campaign.owner = Meteor.userId()
-    campaign.createdAt = new Date()
-    campaign.published = true
-    campaign.isOpen = true
-    Campaigns.insert(campaign)
+    // Create initial contribution
+    Meteor.call('contributions.insert', initial_amount, (err, res) => {
+      if (err) throw err
+      // Fill in other attributes and push to db
+      campaign.contributions = [res._id]
+      campaign.owner = Meteor.userId()
+      campaign.isOpen = true
+      const now = new Date()
+      campaign.createdAt = now
+      campaign.lastEditAt = now
+      // TODO: notify all users
+      Campaigns.insert(campaign)
+    })
+  },
+  
+  'campaigns.addContribution'(_id, amount) {
+    const uid = Meteor.userId()
+    check(uid, Matchers.ID)
+    Meteor.call('contributions.insert', amount, (err, res) => {
+      if (err) throw err
+      // Reject if user already has a contribution in campaign
+      if (Campaigns.findOne({contributions: {$elemMatch: {owner: uid} }}))
+        throw new Meteor.Error(400, 'Bad request')
+      // TODO: notify all participants
+      Campaigns.update(_id, {
+        $push: {contributions: res._id },
+        $set: {lastEditAt: new Date()},
+      })
+    })
+  },
+  
+  'campaigns.removeContribution'(_id, contribution_id) {
+    
   },
   
   'campaigns.close'(_id) {
     checkIfOwner(_id)
-    Campaigns.update(_id, {$set: {isOpen: false} })
+    // TODO: notify all participants
+    Campaigns.update(_id, {$set: {isOpen: false, lastEditAt: new Date()} })
+  },
+  
+  'campaigns.updateInfo'(_id, attributes) {
+    checkIfOwner(_id)
+    // This method expects `attributes` to (only) have these keys
+    check(attributes, {
+      name: String,
+      deadline: Date,
+    })
+    attributes.lastEditAt = new Date()
+    // TODO: notify all participants
+    Campaigns.update(_id, {$set: attributes})
   },
   
   'campaigns.remove'(_id) {
     checkIfOwner(_id)
+    // TODO: remove all contributions linked to campaign
+    // TODO: notify all participants
     Campaigns.remove(_id)
   },
 })
@@ -49,15 +88,15 @@ Meteor.methods({
 
 if (Meteor.isServer) {
   
-  Meteor.publish('campaigns', () => {
-    //check(this.userId, Matchers.ID)
-    console.log(Campaigns.find({$and: {isOpen: true, } }))
-    return Campaigns.find({$and: {isOpen: true, } })
+  Meteor.publish('campaigns', function() {
+    check(this.userId, Matchers.ID)
+    // TODO: make this publish only what will be shown
+    return Campaigns.find()
   })
   
-  Meteor.publish('campaign', (_id) => {
-    //check(this.userId, Matchers.ID)
-    return Campaigns.findOne(_id)
+  Meteor.publish('campaign', function(_id) {
+    check(this.userId, Matchers.ID)
+    return Campaigns.find(idQuery(_id))
   })
 }
 

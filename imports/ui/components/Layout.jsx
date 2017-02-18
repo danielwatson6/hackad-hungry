@@ -13,12 +13,22 @@ class Layout extends Component {
     if (this.props.currentUser) {
       content = (
         <div id="AppContent">
-          <nav className="navbar navbar-inverse bg-inverse">
-            <a href="/" className="navbar-brand">Hungry@NYUAD</a>
-            <ul className="navbar-nav mr-auto">
-              <li>Foo</li>
-            </ul>
-            <AccountsUIWrapper />
+          <nav className="navbar navbar-toggleable-xl navbar-light bg-faded">
+            <button className="navbar-toggler navbar-toggler-right"
+             data-toggle="collapse" data-target="#navbarSupportedContent"
+             aria-controls="navbarSupportedContent" aria-expanded="false"
+             aria-label="Toggle navigation" type="button">
+              <span className="navbar-toggler-icon"></span>
+            </button>
+            <a className="navbar-brand" href="/">Hungry@NYUAD</a>
+
+            <div className="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul className="navbar-nav mr-auto">
+              </ul>
+              <form className="form-inline my-2 my-lg-0">
+                <AccountsUIWrapper />
+              </form>
+            </div>
           </nav>
           {this.props.content()}
         </div>

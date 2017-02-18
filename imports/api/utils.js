@@ -3,6 +3,13 @@ import { Mongo } from 'meteor/mongo'
 import { Match, check } from 'meteor/check'
 
 
+// This matcher is used twice inside the Matchers dictionary
+const NonEmptyString = Match.Where((s) => {
+  check(s, String)
+  return s.length > 0
+})
+
+
 export class Collection extends Mongo.Collection {
   constructor(name) {
     super(name)
@@ -14,16 +21,25 @@ export class Collection extends Mongo.Collection {
   }
 }
 
+
 export const Matchers = {
-  ID: Meteor.Collection.ObjectID,
+  NonEmptyString,
   
-  NonEmptyString: Match.Where((s) => {
-    check(s, String)
-    return s.length > 0
-  }),
+  ID: Match.OneOf(Meteor.Collection.ObjectID, NonEmptyString),
   
-  NonZeroNumber: Match.Where((n) => {
+  PositiveNumber: Match.Where((n) => {
     check(n, Number)
-    return n !== 0
-  })
+    return n > 0
+  }),
+}
+
+export const idQuery = (_id) => {
+  const q = {_id: {$in: [_id]}}
+  try {
+    objectID = new Mongo.ObjectID(_id)
+    q._id['$in'].push(objectID)
+  }
+  finally {
+    return q
+  }
 }

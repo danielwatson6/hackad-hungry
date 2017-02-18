@@ -44,9 +44,9 @@ const render = (func) => {
 //=== Routes ===//
 
 FlowRouter.route('/campaign/:_id', {
-  name: 'campaigns',
-  subscriptions: subscribe('campaigns', (params) => params._id),
-  action: render(() => ( <Campaign _id={params._id} /> )),
+  name: 'campaign',
+  subscriptions: subscribe('campaign', (params) => params._id),
+  action: render((params) => ( <Campaign _id={params._id} /> )),
 })
 
 FlowRouter.route('/', {
