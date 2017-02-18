@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor'
 import { check } from 'meteor/check'
 
-import { Collection, Matchers } from './utils'
+import { Collection, Matchers, mongoID } from './utils'
 
 
 const Campaigns = new Collection('campaigns')
@@ -18,12 +18,10 @@ const checkIfOwner = (_id) => {
 
 Meteor.methods({
   'campaigns.insert'(campaign, initial_amount) {
-    // User must be logged in
-    check(Meteor.userId(), Matchers.NonEmptyString)
-    // Validate user input
+    check(Meteor.userId(), Matchers.ID)
     check(campaign, {
       name: String,
-      restaurant: Matchers.NonEmptyString,
+      restaurant: Matchers.ID,
       deadline: Date,
     })
     // Create initial contribution
@@ -43,7 +41,7 @@ Meteor.methods({
   
   'campaigns.addContribution'(_id, amount) {
     const uid = Meteor.userId()
-    check(uid, Matchers.NonEmptyString)
+    check(uid, Matchers.ID)
     Meteor.call('contributions.insert', amount, (err, res) => {
       if (err) throw err
       // Reject if user already has a contribution in campaign
@@ -82,7 +80,6 @@ Meteor.methods({
   'campaigns.remove'(_id) {
     checkIfOwner(_id)
     // TODO: remove all contributions linked to campaign
-    
     // TODO: notify all participants
     Campaigns.remove(_id)
   },
@@ -92,18 +89,14 @@ Meteor.methods({
 if (Meteor.isServer) {
   
   Meteor.publish('campaigns', function() {
-    check(this.userId(), Matchers.NonEmptyString)
-    // Publish when the user is a participant, OR when
-    // the campaign is both open and not past the deadline
-    return Campaigns.find({$or: {
-      contributions: {$elemMatch: {owner: this.userId()} },
-      $and: {isOpen: true, deadline: {$gt: new Date()}},
-    }})
+    check(this.userId, Matchers.ID)
+    // TODO: make this publish only what will be shown
+    return Campaigns.find()
   })
   
   Meteor.publish('campaign', function(_id) {
-    check(this.userId(), Matchers.NonEmptyString)
-    return Campaigns.findOne(_id)
+    check(this.userId, Matchers.ID)
+    return Campaigns.find(mongoID(_id))
   })
 }
 

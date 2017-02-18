@@ -27,5 +27,5 @@ Meteor.methods({
   },
 })
 
-
+// Requests don't need to be published to client
 export default Requests

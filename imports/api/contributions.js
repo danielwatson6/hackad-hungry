@@ -42,11 +42,11 @@ Meteor.methods({
   },
 })
 
+
 if (Meteor.isServer) {
-  Meteor.publish('contributions', () => {
-    check(Meteor.userId(), Matchers.NonEmptyString)
-    // TODO: make this secure
-    return 
+  Meteor.publish('contributions', function() {
+    check(this.userId(), Matchers.NonEmptyString)
+    return Contributions.find()
   })
 }
 

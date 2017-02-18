@@ -1,7 +1,8 @@
 @import "./vendor/bootstrap/scss/bootstrap.scss";
 
-.navbar-brand {
-  font-family: "Trebuchet MS";
-  font-weight: bold;
-  font-style: italic;
+.CampaignItem {
+  display: block;
+  padding: 1rem;
+  color: #000;
+  border-bottom: 1px solid #eee;
 }
