@@ -8,7 +8,10 @@ import AccountsUIWrapper from './AccountsUIWrapper.jsx'
 class Layout extends Component {
  
   render() {
-    let content = (<AccountsUIWrapper />)
+    let content = (<div>
+    <h2 id="login-title">Hungry @ NYUAD</h2>
+    <AccountsUIWrapper className="login-title"/>
+    </div>)
     
     if (this.props.currentUser) {
       content = (
