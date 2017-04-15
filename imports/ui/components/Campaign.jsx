@@ -1,14 +1,15 @@
-import { Meteor } from 'meteor/meteor'
-import React, { Component, PropTypes } from 'react'
-import { createContainer } from 'meteor/react-meteor-data'
-import { FlowRouter } from 'meteor/kadira:flow-router'
+import { Meteor } from 'meteor/meteor';
+import React, { Component } from 'react';
+import { createContainer } from 'meteor/react-meteor-data';
+import { FlowRouter } from 'meteor/kadira:flow-router';
+import PropTypes from 'prop-types';
 
-import CampaignItem from './CampaignItem'
-import Campaigns from '../../api/campaigns'
+import CampaignItem from './CampaignItem';
+import Campaigns from '../../api/campaigns';
 
 
 class Campaign extends Component {
-  
+
   render() {
     if (!this.props.subscriptionReady)
       return (<p>Loading...</p>) // TODO: make a component for this

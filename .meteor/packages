@@ -24,3 +24,4 @@ accounts-ui
 kadira:flow-router
 meteorhacks:fast-render
 accounts-facebook
+kadira:react-layout

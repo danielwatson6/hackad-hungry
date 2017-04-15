@@ -38,7 +38,7 @@ Meteor.methods({
       Campaigns.insert(campaign)
     })
   },
-  
+
   'campaigns.addContribution'(_id, amount) {
     const uid = Meteor.userId()
     check(uid, Matchers.ID)
@@ -54,17 +54,17 @@ Meteor.methods({
       })
     })
   },
-  
+
   'campaigns.removeContribution'(_id, contribution_id) {
-    
+
   },
-  
+
   'campaigns.close'(_id) {
     checkIfOwner(_id)
     // TODO: notify all participants
     Campaigns.update(_id, {$set: {isOpen: false, lastEditAt: new Date()} })
   },
-  
+
   'campaigns.updateInfo'(_id, attributes) {
     checkIfOwner(_id)
     // This method expects `attributes` to (only) have these keys
@@ -76,7 +76,7 @@ Meteor.methods({
     // TODO: notify all participants
     Campaigns.update(_id, {$set: attributes})
   },
-  
+
   'campaigns.remove'(_id) {
     checkIfOwner(_id)
     // TODO: remove all contributions linked to campaign
@@ -87,13 +87,13 @@ Meteor.methods({
 
 
 if (Meteor.isServer) {
-  
+
   Meteor.publish('campaigns', function() {
     check(this.userId, Matchers.ID)
     // TODO: make this publish only what will be shown
     return Campaigns.find()
   })
-  
+
   Meteor.publish('campaign', function(_id) {
     check(this.userId, Matchers.ID)
     return Campaigns.find(idQuery(_id))

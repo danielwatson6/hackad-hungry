@@ -3,15 +3,15 @@ import { createContainer } from 'meteor/react-meteor-data'
 
 
 class CampaignItem extends Component {
-	
+
 	uri() {
 		return '/campaign/' + this.props.campaign._id
 	}
-	
+
 	getRestaurantInfo() {
 		return
 	}
-	
+
 	render() {
 		const restaurantInfo = this.getRestaurantInfo()
 		return (

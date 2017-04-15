@@ -8,22 +8,22 @@ const Requests = new Collection('requests')
 
 
 Meteor.methods({
-  'requests.insert'(message) {
+  'requests.insert'(message) {i
     // checks for user
     if (Meteor.userId() == null)
-      throw new Meteor.Error(403, 'Unauthorized')  
+      throw new Meteor.Error(403, 'Unauthorized')
 
   	check(message, Matchers.NonEmptyString)
-    
+
     // Fill in other attributes and push to db
     const request = { message }
     request.createdAt = new Date()
     Requests.insert(request)
   },
-  
+
   'restaurants.update'(attributes) {
     Requests.message = Matchers.NonEmptyString
-    
+
   },
 })
 

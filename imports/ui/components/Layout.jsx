@@ -1,15 +1,16 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component} from 'react';
 import { createContainer } from 'meteor/react-meteor-data'
+import PropTypes from 'prop-types';
 
 import AccountsUIWrapper from './AccountsUIWrapper.jsx'
 
 
 // Parent component - router will render everything inside
 class Layout extends Component {
- 
+
   render() {
     let content = (<AccountsUIWrapper />)
-    
+
     if (this.props.currentUser) {
       content = (
         <div id="AppContent">
@@ -34,7 +35,7 @@ class Layout extends Component {
         </div>
       )
     }
-    
+
     return (<div id="App">{content}</div>)
   }
 }
