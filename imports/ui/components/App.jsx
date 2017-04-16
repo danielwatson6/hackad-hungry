@@ -5,19 +5,18 @@ import PropTypes from 'prop-types';
 
 import AccountsUIWrapper from './AccountsUIWrapper.jsx';
 import CampaignsCollection from '../../api/campaigns.js';
-import Layout from './Layout.jsx';
+import Header from './Header.jsx';
 
 class App extends Component{
   render(){
     return (
       <div>
-        <h1>Test</h1>
-        <Layout />
+        <Header />
+        <h1> Main Page </h1>
       </div>
     );
   }
 }
-
 
 export default createContainer(()=>{
     return {
