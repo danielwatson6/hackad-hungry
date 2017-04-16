@@ -21,7 +21,5 @@ shell-server@0.2.1            # Server-side component of the `meteor shell` comm
 react-meteor-data
 fourseven:scss
 accounts-ui
-kadira:flow-router
 meteorhacks:fast-render
 accounts-facebook
-kadira:react-layout

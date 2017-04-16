@@ -3,22 +3,21 @@ import React, { Component } from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 
+import AccountsUIWrapper from './AccountsUIWrapper.jsx';
 import CampaignsCollection from '../../api/campaigns.js';
-import Campaigns from './Campaigns.jsx';
+import Layout from './Layout.jsx';
 
 class App extends Component{
   render(){
     return (
       <div>
         <h1>Test</h1>
+        <Layout />
       </div>
     );
   }
 }
 
-App.propTypes = {
-  campaigns: PropTypes.array.isRequired
-};
 
 export default createContainer(()=>{
     return {

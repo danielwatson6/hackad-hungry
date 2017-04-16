@@ -33,7 +33,7 @@ Campaigns.propTypes = {
 export default createContainer(() => {
 	return {
 		// TODO: fetch from collection
-		campaigns: CampaignsCollection.find().fetch(),
+		campaigns: CampaignsCollection.find({}).fetch(),
 		currentUser: Meteor.user(),
 	};
 }, Campaigns)
