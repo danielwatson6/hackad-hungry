@@ -1,1 +1,43 @@
-@import "../imports/ui/index.scss";
+//@import "../imports/ui/index.scss";
+
+#menu-link:hover, #menu-link {
+  color:white;
+  text-decoration: none;
+  font-weight: bold;
+  padding:10px;
+}
+
+.dropdown {
+  max-width:40px;
+}
+
+#menu-icon {
+  max-width: 20%;
+  list-style: none;
+}
+
+ul .visible-xs{
+  max-height: 40px;
+  max-width: 50%;
+}
+
+
+a .navbar-brand {
+  text-transform: capitalize;
+}
+
+
+.sign-in h1, h4 {
+  text-align: center;
+}
+
+.btn-primary:hover {
+  color: #fff;
+  background-color: #2a2c2e;
+  border-color: #333;
+}
+
+body {
+  margin-top:40px;
+
+}

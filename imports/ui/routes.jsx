@@ -1,17 +1,31 @@
-import { render } from 'react-dom';
-import  { BrowserRouter as Router, Route, IndexRoute, browserHistory} from 'react-router-dom';
-import App from './components/App.jsx';
 import React from 'react';
-import SignIn from './components/SignIn.jsx';
+import { mount } from 'react-mounter';
 
-Meteor.startup(() => {
-  render((
-    <Router history={browserHistory}>
-      <div>
-        <Route exact path="/" component={App} />
-        <Route exact path="/signin" component={SignIn} />
-      </div>
-    </Router>),
-    document.getElementById('render-target')
-  );
+import App from '/imports/ui/components/App.jsx';
+import { ContainerLayout } from '/imports/ui/components/layouts/ContainerLayout.jsx';
+import SignIn from '/imports/ui/components/SignIn.jsx';
+import NotFound from '/imports/ui/components/layouts/NotFound.jsx';
+
+FlowRouter.route('/', {
+  action() {
+    mount(ContainerLayout, {
+        content: (<App />)
+    });
+  }
+});
+
+FlowRouter.route('/signin', {
+  action() {
+    mount(SignIn, {
+      content: (<SignIn />)
+    });
+  }
+});
+
+FlowRouter.route('/*', {
+  action() {
+    mount(ContainerLayout, {
+      content: (<NotFound />)
+    });
+  }
 });

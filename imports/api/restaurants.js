@@ -26,7 +26,7 @@ Meteor.methods({
     restaurant.lastEditAt = now
     Restaurants.insert(restaurant)
   },
-  
+
   'restaurants.update'(attributes) {
     check(Meteor.userId(), Matchers.ID)
     check(attributes, {
@@ -41,12 +41,12 @@ Meteor.methods({
 
 
 if (Meteor.isServer) {
-  
+
   Meteor.publish('restaurants', function() {
-    check(this.userId(), Matchers.ID)
+    //check(this.userId(), Matchers.ID)
     return Restaurants.find()
   })
-  
+
   Meteor.publish('restaurant', function(_id) {
     check(this.userId(), Matchers.ID)
     return Restaurants.findOne(_id)
@@ -54,4 +54,4 @@ if (Meteor.isServer) {
 }
 
 
-export default Restaurants
+export default Restaurants;

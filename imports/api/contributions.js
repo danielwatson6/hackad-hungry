@@ -26,15 +26,15 @@ Meteor.methods({
     const now = new Date()
     contribution.createdAt = now
     contribution.lastEditAt = now
-    
+    // Insert contribution to db
   },
-  
+
   'contributions.changeAmount'(_id, amount) {
     checkIfOwner(Meteor.userId())
     // TODO: notify all participants
     Contributions.update(_id, {$set: {amount, lastEditAt: new Date()} })
   },
-  
+
   'contributions.remove'(_id) {
     checkIfOwner(Meteor.userId())
     // TODO: notify all participants
@@ -45,10 +45,10 @@ Meteor.methods({
 
 if (Meteor.isServer) {
   Meteor.publish('contributions', function() {
-    check(this.userId(), Matchers.NonEmptyString)
+    //check(this.userId(), Matchers.NonEmptyString)
     return Contributions.find()
   })
 }
 
 
-export default Contributions
+export default Contributions;
