@@ -18,7 +18,7 @@ es5-shim@4.6.15                # ECMAScript 5 compatibility for older browsers.
 ecmascript@0.7.2              # Enable ECMAScript2015+ syntax in app code
 shell-server@0.2.3            # Server-side component of the `meteor shell` command
 
-fourseven:scss
+
 accounts-ui@1.1.9
 meteorhacks:fast-render
 accounts-facebook@1.1.1
@@ -27,3 +27,5 @@ kadira:flow-router
 ultimatejs:tracker-react
 meteortoys:allthings
 twbs:bootstrap
+fourseven:scss
+fortawesome:fontawesome

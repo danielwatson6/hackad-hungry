@@ -4,7 +4,7 @@ import Header from '/imports/ui/components/Header.jsx';
 
 
 export const ContainerLayout = ({content}) => (
-  <div className="container-fluid">
+  <div>
     <Header />
     {content}
   </div>

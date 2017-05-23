@@ -4,7 +4,9 @@ import { check } from 'meteor/check'
 import { Collection, Matchers, idQuery } from './utils'
 
 
-const Campaigns = new Collection('campaigns')
+const Campaigns = new Collection('campaigns');
+
+
 
 const checkIfOwner = (_id) => {
   const campaign = Campaigns.findOne(_id)

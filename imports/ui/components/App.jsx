@@ -4,6 +4,8 @@ import TrackerReact from 'meteor/ultimatejs:tracker-react';
 //----------------------DB IMPORTS----------------------
 import Campaigns from '/imports/api/campaigns';
 import Restaurants from '/imports/api/restaurants';
+import FakeLayout from '/imports/ui/components/fakelayout.jsx';
+import Header from '/imports/ui/components/Header.jsx';
 
 export default class App extends TrackerReact(React.Component) {
   constructor() {
@@ -30,8 +32,9 @@ export default class App extends TrackerReact(React.Component) {
   render(){
     {console.log(this.test())}
     return (
-      <div className="container-fluid">
-        <h1>Main Page</h1>
+      <div>
+        <h1 className="text-center text-uppercase">home</h1>
+        <FakeLayout />
       </div>
     );
   }
