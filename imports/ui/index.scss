@@ -1,5 +1,5 @@
 @import "./vendor/bootstrap/scss/bootstrap.scss";
-@import url('https://fonts.googleapis.com/css?family=Open+Sans|Open+Sans+Condensed:300|PT+Sans|Roboto+Condensed|Alegreya+Sans+SC:500');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans|Open+Sans+Condensed:300|PT+Sans|Roboto+Condensed|Alegreya+Sans+SC:500|Alegreya+Sans:500');
 
 .CampaignItem {
   display: block;
@@ -28,6 +28,14 @@
   .icon-bar{
     width:15px;
   }
+}
+
+#menu-button:focus, #menu-button:hover {
+    background-color: #58108e;
+}
+
+.navbar-inverse .navbar-nav > .active > a{
+  background-color: #450e6f;
 }
 
 #brand{
@@ -67,9 +75,18 @@ h1{
    text-align:center;
  }
 
-#login-buttons .login-button:hover, .accounts-dialog .login-button:hover, #login-btn:hover {
+#login-buttons .login-button:hover, .accounts-dialog .login-button:hover, #login-btn:hover, #nav-header:hover {
   color:#FFF;
   background:#58108e;
+}
+
+#nav-header{
+  color:#FFF;
+  background:#58108e;
+}
+
+#header li > a:not(.active) {
+    color: white;
 }
 
 #login-buttons .text-besides-image{
@@ -122,19 +139,31 @@ body, html, #react-root {
   font-family:'Open Sans', sans-serif;
   position:relative;
   left:30px;
+  padding:0;
+  margin:0;
 }
 
 #welcome h1{
   font-weight:600;
-  font-family:'Alegreya Sans SC' , sans-serif;
-  margin-left:0px;
-  max-width: 200px;
+  font-family:'Alegreya Sans' , sans-serif;
 }
 
-#welcome p, h2{
-  font-weight:bold;
+.hungry h2 {
+  font-family:'Helvetica Neue Light', sans-serif;
+  font-weight:100;
 }
+
 #splash-icon{
   margin-top:30px;
   margin-left:35px;
+}
+
+.hungry{
+  display:inline;
+}
+
+
+input.form-control.item.mx-auto{
+  border:1px solid #dedbdb;
+  border-radius:4px;
 }

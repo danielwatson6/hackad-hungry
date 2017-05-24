@@ -31,6 +31,10 @@ export default class App extends TrackerReact(React.Component) {
 
   render(){
     {console.log(this.test())}
+    
+    {if(Meteor.userId() === null){
+      FlowRouter.go('/splash');
+    }}
     return (
       <div>
         <h1 className="text-center text-uppercase">home</h1>

@@ -1,45 +1,43 @@
 import React, { Component } from 'react';
 
 
-
 export default class Header extends Component {
 
   render() {
     return (
-      <nav className="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <nav className="navbar navbar-inverse navbar-fixed-top" role="navigation" id="nav-header">
         <div className="row">
           <div className="col-xs-3">
-            <button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#header" id="menu-button">
-              <span className="icon-bar"></span>
-              <span className="icon-bar"></span>
-              <span className="icon-bar"></span>
+            <button type="button" className="navbar-toggle text-white" data-toggle="collapse" data-target="#header" id="menu-button">
+              <i className="fa fa-bars fa-2x" aria-hidden="true"></i>
             </button>
           </div> {/* <!-- col --> */}
             <div className="col-xs-3">
-              <a className="navbar-brand text-uppercase text-right" href="/" id="brand">Hungry@NYUAD</a>
+              <a className="navbar-brand navbar-right" href="/" id="brand"><img src="/images/restaurant.png" width="30px" height="30px"/></a>
             </div> {/* <!-- col --> */}
         </div> {/* <!-- col --> */}
 
         <div className="collapse navbar-collapse" id="header">
           <ul className="nav navbar-nav">
             <li className="active"><a href="/">Home</a></li>
-            <li><a href="#">Restaurants</a></li>
+            <li className="text-white"><a href="#">Restaurants</a></li>
             <li><a href="#">Subscriptions</a></li>
+            <li className="dropdown-divider"></li>
           </ul> {/* <!-- ul --> */}
           <ul className="nav navbar-nav navbar-right">
             <li>
-              <a href="#">
-                <span className="glyphicon glyphicon-user"></span>&nbsp;Sign Up
+              <a href="/signup">
+                <i className="fa fa-user-plus text-white" aria-hidden="true"></i>&nbsp;Sign Up
               </a>
             </li>
             <li>
               <a href="/signin">
-                <span className="glyphicon glyphicon-log-in"></span>&nbsp; Log In
+                <i className="fa fa-sign-in text-white" aria-hidden="true"></i>&nbsp; Log In
               </a>
             </li>
           </ul> {/* <!-- ul --> */}
         </div> {/* <!-- dropdown/collapsable navbar --> */}
-      </nav> 
+      </nav>
     );
   }
 }

@@ -8,21 +8,24 @@ export default class SignIn extends Component {
   render(){
     return (
       <div className="container-fluid pt-5" id="logincontainer">
-          <h1 className="text-center text-uppercase pb-5 pt-5">Login</h1>
-          <br/>
-          <div className="row justify-content-center">
-            <div className="col-xs-9 offset-xs-1">
-              <Layout /><br/>
-            </div>
+        <div className="fixed-top pt-4 pl-2">
+          <button className="btn btn-link"><i className="fa fa-chevron-left text-primary" aria-hidden="true"></i> Cancel</button>
+        </div>
+        <h1 className="text-center text-uppercase pb-5 pt-5">Login</h1>
+        <br/>
+        <div className="row justify-content-center">
+          <div className="col-xs-9 offset-xs-1">
+            <Layout /><br/>
           </div>
-          <br/><h4 className="text-center text-uppercase figure-caption"> or </h4><br/><br/>
-          <div className="input-group username clearfix"> {/* <!-- Input group --> */}
-              <input type="text" className="form-control item mx-auto" placeholder="Username or email" aria-describedby="username-addon" />
-          </div> {/* <!-- Input group --> */}
-          <br/>
-          <div className="input-group password clearfix">
-            <input type="password" className="form-control item mx-auto" placeholder="Password" aria-describedby="password-addon"/>
-          </div>
+        </div>
+        <br/><h4 className="text-center text-uppercase figure-caption"> or </h4><br/><br/>
+        <div className="input-group input-group-sm username"> {/* <!-- Input group --> */}
+          <input type="text" className="form-control item mx-auto" placeholder="Username or email" aria-describedby="sizing-addon1" id="username-field"/>
+        </div> {/* <!-- Input group --> */}
+        <br/>
+        <div className="input-group password clearfix">
+          <input type="password" className="form-control item mx-auto" placeholder="Password" aria-describedby="password-addon" id="password-field"/>
+        </div>
         <br/>
         <br />
         <br/>

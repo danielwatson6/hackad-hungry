@@ -6,8 +6,8 @@ export default class Footer extends Component{
     return (
       <footer className="footer fixed-bottom copyright">
         <hr/>
-        <p className="text-center text-uppercase text-muted">
-          &copy; Hungry@NYUAD 2017.
+        <p className="text-center text-muted">
+          &copy; hungry@NYUAD 2017.
         </p>
       </footer>
     );
