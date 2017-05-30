@@ -60,8 +60,9 @@ h1{
   text-align: justify;
 }
 
-#login-buttons .login-image{
+#login-buttons .login-image, .login-form.login-password-form, .or{
   display:none;
+
 }
 
 #login-buttons .login-button, .accounts-dialog .login-button, #login-btn, #login-btn-splash {
@@ -73,7 +74,8 @@ h1{
    font-size:0.92em;
    padding:8px;
    text-align:center;
- }
+   border-radius: 4px;
+}
 
 #login-buttons .login-button:hover, .accounts-dialog .login-button:hover, #login-btn:hover, #nav-header:hover {
   color:#FFF;
@@ -95,12 +97,14 @@ h1{
 
 
 #login-btn, .login-button, #login-btn-splash{
-  width:200px;
-  margin-left: 5px;
-  max-width:200px;
+  width:225px;
+  max-width:225px;
   height:30px;
   border: none;
   font-weight: bold;
+  position: relative;
+  display: block;
+  margin:0 auto;
 }
 
 #login-btn-splash, #login-btn-splah:hover {
@@ -119,6 +123,11 @@ h1{
 .copyright {
   font-family: 'PT Sans', sans-serif;
   font-weight: 300;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  clear:both;
 }
 
 
@@ -127,30 +136,45 @@ h1{
   padding-right:0px;
 }
 
-body, html, #react-root {
+body, html, #react-root{
   height:100%;
+  min-height:100%;
+  margin:0;
   #splash{
     background: #58108e;
     height:100%;
   }
 }
 
+
 #welcome{
-  font-family:'Open Sans', sans-serif;
+  font-family:'Helvetica Neue', sans-serif;
   position:relative;
-  left:30px;
   padding:0;
   margin:0;
+  h1{
+    font-weight:600;
+    font-family:'Alegreya Sans SC' , sans-serif;
+  }
 }
 
-#welcome h1{
-  font-weight:600;
-  font-family:'Alegreya Sans' , sans-serif;
+#welcome h2 {
+    font-size: 1.50rem;
+    margin-bottom:  0;
 }
 
-.hungry h2 {
-  font-family:'Helvetica Neue Light', sans-serif;
-  font-weight:100;
+#slogan {
+    font-size: 1rem;
+    font-weight: 300;
+}
+
+.hungry{
+  display:inline;
+}
+
+h2.hungry{
+  font-weight:300;
+  font-style: italic;
 }
 
 #splash-icon{
@@ -158,12 +182,35 @@ body, html, #react-root {
   margin-left:35px;
 }
 
-.hungry{
-  display:inline;
-}
-
-
 input.form-control.item.mx-auto{
   border:1px solid #dedbdb;
   border-radius:4px;
+}
+
+.or-separator {
+  color:#b7bec3;
+  .hline{
+    text-decoration: line-through;
+  }
+}
+
+#email-addon, #email-input{
+  display:inline-block;
+  margin:0;
+}
+
+.input-group-addon{
+  width:2.5rem;
+}
+
+#name-input, #email-input, #password-input, #confirmPassword-input {
+    border: 1px solid #dcd7d7;
+}
+
+.text-purple{
+  color:#58108e;
+}
+
+#section{
+  padding-bottom:40px;
 }

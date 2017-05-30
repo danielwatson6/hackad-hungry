@@ -8,7 +8,6 @@ import SignUp from '/imports/ui/components/SignUp.jsx';
 import SplashScreen from '/imports/ui/components/SplashScreen';
 import NotFound from '/imports/ui/components/layouts/NotFound.jsx';
 
-
 FlowRouter.route('/', {
   action() {
     mount(ContainerLayout, {

@@ -13,7 +13,7 @@ export default class Header extends Component {
             </button>
           </div> {/* <!-- col --> */}
             <div className="col-xs-3">
-              <a className="navbar-brand navbar-right" href="/" id="brand"><img src="/images/restaurant.png" width="30px" height="30px"/></a>
+              <a className="navbar-brand navbar-right" href="/" id="brand"><img src="/images/logo-3.png" width="23px" height="30px"/></a>
             </div> {/* <!-- col --> */}
         </div> {/* <!-- col --> */}
 

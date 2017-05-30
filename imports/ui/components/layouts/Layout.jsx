@@ -1,7 +1,7 @@
 import React, { Component} from 'react';
 import PropTypes from 'prop-types';
 
-import AccountsUIWrapper from './AccountsUIWrapper.jsx'
+import AccountsUIWrapper from '/imports/ui/components/layouts/AccountsUIWrapper.jsx';
 
 
 // Parent component - router will render everything inside
@@ -35,7 +35,7 @@ export default class Layout extends Component {
       )
     }
 
-    return (<div id="App">{content}</div>)
+    return (<div id="FBLayout">{content}</div>)
   }
 }
 

@@ -1,11 +1,12 @@
 import { Meteor } from 'meteor/meteor'
-
 import Campaigns from '/imports/api/campaigns'
 import Restaurants from '/imports/api/restaurants'
+import { check } from 'meteor/check';
+import {Accounts} from 'meteor/accounts-password';
 
 
 Meteor.startup(() => {
-  
+
   if (Restaurants.find().count() === 0) {
     const dummyRestaurants = [
       {
@@ -42,13 +43,13 @@ Meteor.startup(() => {
   	for (restaurant of dummyRestaurants)
       Restaurants.insert(restaurant)
   }
-  
+
   if (Campaigns.find().count() === 0) {
-    
+
     let restaurantIds = Restaurants.find().fetch()
     restaurantIds = _.map(restaurantIds, (restaurant) => restaurant._id)
     console.log(restaurantIds)
-    
+
     const dummyCampaigns = [
       {
         name: 'Sushi Anyone?',
@@ -89,4 +90,4 @@ Meteor.startup(() => {
     for (campaign of dummyCampaigns)
       Campaigns.insert(campaign)
   }
-})
+});

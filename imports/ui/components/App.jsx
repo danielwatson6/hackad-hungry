@@ -6,6 +6,7 @@ import Campaigns from '/imports/api/campaigns';
 import Restaurants from '/imports/api/restaurants';
 import FakeLayout from '/imports/ui/components/fakelayout.jsx';
 import Header from '/imports/ui/components/Header.jsx';
+import { userAccountSchema,  loginSchema } from '/imports/api/userAccountsSchema.jsx';
 
 export default class App extends TrackerReact(React.Component) {
   constructor() {
@@ -13,7 +14,8 @@ export default class App extends TrackerReact(React.Component) {
     this.state = {
       subscription: {
         campaigns: Meteor.subscribe('campaigns'),
-        restaurants: Meteor.subscribe('restaurants')
+        restaurants: Meteor.subscribe('restaurants'),
+        names: Meteor.subscribe('users.name', Meteor.userId())
       }
     }
   }
@@ -22,6 +24,7 @@ export default class App extends TrackerReact(React.Component) {
     // stop / unsubscribe from each data subscription
     this.state.subscription.campaigns.stop();
     this.state.subscription.restaurants.stop();
+    this.state.subscription.names.stop();
 
   }
 
@@ -30,11 +33,10 @@ export default class App extends TrackerReact(React.Component) {
   }
 
   render(){
-    {console.log(this.test())}
-    
-    {if(Meteor.userId() === null){
+    {if(!Meteor.userId()){
       FlowRouter.go('/splash');
     }}
+    {console.log(this.test())}
     return (
       <div>
         <h1 className="text-center text-uppercase">home</h1>
