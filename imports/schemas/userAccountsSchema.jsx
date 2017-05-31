@@ -46,11 +46,6 @@ userAccountSchema = new SimpleSchema({
   }
 });
 
-if(Meteor.isServer){
-  Meteor.publish('users.name', function (){
-    return Meteor.users.find({_id:{$eq:this.userId}}, {fields:{name:1}});
-  });
-}
 
 export { loginSchema };
 export { userAccountSchema };

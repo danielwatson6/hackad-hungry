@@ -1,32 +1,22 @@
 import { Meteor } from 'meteor/meteor';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import { Session } from 'meteor/session';
 import { SimpleSchema }  from 'meteor/aldeed:simple-schema';
-import { userAccountSchema,  loginSchema } from '/imports/api/userAccountsSchema.jsx';
+//----------------------USER DEFINED IMPORTS----------------------
+import { userAccountSchema,  loginSchema } from '/imports/schemas/userAccountsSchema.jsx';
 import FacebookLogin from '/imports/ui/components/layouts/FacebookLogin.jsx';
 import Footer from '/imports/ui/components/Footer.jsx';
 
 
 
+
 export default class SignIn extends Component {
-
-  componentWillMount(){
-    console.log("SignIn Component is loading...");
-  }
-
-  componentDidMount(){
-    console.log("SignIn Component loaded.");
-  }
-
-  componentDidUnMount(){
-    console.log("SignIn Component is being destroyed.");
-  }
 
   handleSignin(event){
     event.preventDefault();
     const email = ReactDOM.findDOMNode(this.refs.emailField).value.trim();
     const password = ReactDOM.findDOMNode(this.refs.passwordField).value.trim();
-
 
     loginDetails = {
       email: email,
@@ -38,7 +28,7 @@ export default class SignIn extends Component {
       if(err){
         console.log(err.reason);
         ReactDOM.findDOMNode(this.refs.passwordField).value = '';
-        throw new Meteor.Error('user not found');
+        Session.set('LoginError', err.reason || "Unknown error");
       }
       else {
         console.log("User successfully logged in");
@@ -50,7 +40,7 @@ export default class SignIn extends Component {
   render(){
     return (
       <div className="container-fluid pt-5" id="logincontainer">
-        <FacebookLogin title="Login"/>
+        <FacebookLogin title="Login" buttonTitle="Sign in with Facebook"/>
         <form name="signin">
           <div className="input-group pt-3 justify-content-center">
             <span className="input-group-addon" id="email-addon"><i className="fa fa-envelope" aria-hidden="true"></i></span>

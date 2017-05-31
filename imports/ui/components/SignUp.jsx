@@ -1,24 +1,17 @@
-//import {Accounts} from 'meteor/accounts-password';
+import { check, Match } from 'meteor/check';
+import { Meteor } from 'meteor/meteor';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom'
-import Footer from '/imports/ui/components/Footer.jsx';
+import { Session } from 'meteor/session';
+//----------------------USER DEFINED IMPORTS----------------------
 import FacebookLogin from '/imports/ui/components/layouts/FacebookLogin.jsx';
-import { userAccountSchema } from '/imports/api/userAccountsSchema.jsx';
-import { check, Match } from 'meteor/check';
-import { ReactiveDict } from 'meteor/reactive-dict';
-import { Meteor } from 'meteor/meteor';
-
+import Footer from '/imports/ui/components/Footer.jsx';
+import { userAccountSchema } from '/imports/schemas/userAccountsSchema.jsx';
+import Layout from '/imports/ui/components/layouts/Layout.jsx';
 
 export default class SignUp extends Component{
 
-  constructor(){
-    super();
-    this.state = {
-      errors: new ReactiveDict()
-    }
-  }
-
-  handleSignUp(event){
+  handlePasswordSignUp(event){
     event.preventDefault();
     console.log('SignUp Button Pressed');
     const name = ReactDOM.findDOMNode(this.refs.name).value.trim();
@@ -35,33 +28,48 @@ export default class SignUp extends Component{
       userAccountSchema.validate(accountDetails);
       Accounts.createUser({
         email: accountDetails.email,
-        password: accountDetails.password
+        password: accountDetails.password,
+        name: accountDetails.name
       }, err => {
-        if(err){console.log(err.reason)}
+        if(err){
+          console.log(err.reason);
+          Session.set("AccountCreationError", err.reason || "Unknown error")
+        }
         else {
-          if (!Meteor.isClient) {
-            Accounts.onCreateUser((options, user) => {
-              user.name = accountDetails.name;
-              console.log("on server");
-              return user;
-            });
-          }
+          Session.set("AccountCreationSuccess", "Account Created Successfully.");
           FlowRouter.go("/");
         }
+      }); //Close Accounts.createUser();
+    }
+    catch(error){ //Catch the validation errors
+      let message = "";
+      error.details.forEach(function(e){
+        if(e.name === "password" && e.type === "minString"){
+          message = "Password is too short, password has to be at least 7 characters.";
+          Session.set("passwordError", message);
+        }
+        else if(e.name === "confirmPassword" && e.type === "passwordMismatch") {
+          message = "Passwords do not match.";
+          Session.set("passwordError", message);
+        } else if (e.name === "name" && e.type === "minString"){
+          message = "Name is too short, enter a valid name.";
+          Session.set("nameEror", message);
+        } else if (e.name === "email" && e.type === "regEx"){
+          message = "The email adress entered is not valid, enter a valid email.";
+          Session.set("emailError", message);
+        }
+        console.log(message);
       });
 
-
-    }
-    catch(error){
-      console.log(error.message);
     }
 
-  }
+  } //close handlePasswordSignUp
 
   render(){
     return (
       <div className="container-fluid pt-5">
-        <FacebookLogin title="Sign Up" />
+        <FacebookLogin title="Sign Up" buttonTitle="Create Account with Facebook"/>
+        {/*<Layout /><br/><br/>*/}
         <form name="signup">
           <div className="input-group justify-content-center pt-0">
             <span className="input-group-addon"><i className="fa fa-user" aria-hidden="true"></i></span>
@@ -81,7 +89,7 @@ export default class SignUp extends Component{
           </div>
           <section className="section pt-5">
             <div className="form-group sign-in-button">
-              <button type="submit" className="btn" id="login-btn" onClick={this.handleSignUp.bind(this)}>
+              <button type="submit" className="btn" id="login-btn" onClick={this.handlePasswordSignUp.bind(this)}>
                 <i className="fa fa-user-plus text-white"></i>&nbsp;
                 Create Account
               </button>

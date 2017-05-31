@@ -1,15 +1,31 @@
+import { Meteor } from 'meteor/meteor';
 import React, { Component } from 'react';
-import Layout from '/imports/ui/components/layouts/Layout.jsx';
+import { Session } from 'meteor/session';
 
 
 export default class FacebookLogin extends Component {
   constructor(props){
     super(props);
-    console.log(props.title);
   }
 
-  goBack(){
+  goBack(event){
+    event.preventDefault();
     console.log('cancel button pressed');
+  }
+
+  handleFacebookSignUp(event){
+    event.preventDefault();
+    Meteor.loginWithFacebook({
+      requestPermissions: ['public_profile', 'email',]
+    }, (err) => {
+      if(err){
+        Session.set('facebookLoginError', err.reason || "Unknown error");
+      }
+      else{
+        FlowRouter.go("/");
+      }
+    });
+
   }
 
   render(){
@@ -20,10 +36,11 @@ export default class FacebookLogin extends Component {
         </div>
         <h1 className="text-center text-uppercase pb-5 pt-5">{this.props.title}</h1>
         <br/>
-        <div className="justify-content-center">
-          <div id="facebook-button">
-          <Layout /><br />
-          </div>
+        <div className="form-group sign-in-button justify-content-center" id="facebook-button">
+          <button type="button" className="btn" id="login-btn" onClick={this.handleFacebookSignUp.bind(this)}>
+            <i className="fa fa-facebook-official text-white" aria-hidden="true"></i>&nbsp;&nbsp;
+            {this.props.buttonTitle}
+          </button>
         </div>
         <br/>
         <h4 className="text-center text-uppercase figure-caption or-separator">

@@ -37,3 +37,5 @@ aldeed:simple-schema
 check
 reactive-dict
 aldeed:autoform
+service-configuration
+session

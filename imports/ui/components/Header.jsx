@@ -1,7 +1,18 @@
+import { Meteor } from 'meteor/meteor';
 import React, { Component } from 'react';
 
 
 export default class Header extends Component {
+
+  logUserOut(event){
+    event.preventDefault();
+    Meteor.logout(err => {
+      if(err){
+        Session.set("LogoutError", err.reason || "Unknown error");
+      }
+    });
+    console.log("logout in process");
+  }
 
   render() {
     return (
@@ -26,13 +37,9 @@ export default class Header extends Component {
           </ul> {/* <!-- ul --> */}
           <ul className="nav navbar-nav navbar-right">
             <li>
-              <a href="/signup">
-                <i className="fa fa-user-plus text-white" aria-hidden="true"></i>&nbsp;Sign Up
-              </a>
-            </li>
-            <li>
-              <a href="/signin">
-                <i className="fa fa-sign-in text-white" aria-hidden="true"></i>&nbsp; Log In
+              <a onClick={this.logUserOut.bind(this)}>
+                <i className="fa fa-sign-out text-white" aria-hidden="true"></i>&nbsp;
+                Log Out
               </a>
             </li>
           </ul> {/* <!-- ul --> */}

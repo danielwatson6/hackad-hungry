@@ -1,12 +1,13 @@
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
+import { Session } from 'meteor/session';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
-//----------------------DB IMPORTS----------------------
+//----------------------USER DEFINED IMPORTS----------------------
 import Campaigns from '/imports/api/campaigns';
 import Restaurants from '/imports/api/restaurants';
 import FakeLayout from '/imports/ui/components/fakelayout.jsx';
 import Header from '/imports/ui/components/Header.jsx';
-import { userAccountSchema,  loginSchema } from '/imports/api/userAccountsSchema.jsx';
+import { userAccountSchema,  loginSchema } from '/imports/schemas/userAccountsSchema.jsx';
 
 export default class App extends TrackerReact(React.Component) {
   constructor() {
@@ -20,6 +21,7 @@ export default class App extends TrackerReact(React.Component) {
     }
   }
 
+
   componentWillUnmount(){
     // stop / unsubscribe from each data subscription
     this.state.subscription.campaigns.stop();
@@ -28,15 +30,13 @@ export default class App extends TrackerReact(React.Component) {
 
   }
 
-  test(){
-    return this.state.subscription.campaigns;
-  }
+
 
   render(){
-    {if(!Meteor.userId()){
+    if(!Meteor.userId()){
       FlowRouter.go('/splash');
-    }}
-    {console.log(this.test())}
+    }
+
     return (
       <div>
         <h1 className="text-center text-uppercase">home</h1>
