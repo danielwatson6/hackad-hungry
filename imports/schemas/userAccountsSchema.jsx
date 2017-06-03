@@ -18,7 +18,7 @@ loginSchema = new SimpleSchema({
  }
 });
 
-userAccountSchema = new SimpleSchema({
+signUpAccountSchema = new SimpleSchema({
   name: {
     type: String,
     label: "Name",
@@ -46,6 +46,22 @@ userAccountSchema = new SimpleSchema({
   }
 });
 
+const getErrorMessage = (error) => {
+  let message = "";
+  if(error.name === "password" && error.type === "minString"){
+    message = "Password is too short, password has to be at least 7 characters.";
+  }
+  else if(error.name === "confirmPassword" && error.type === "passwordMismatch") {
+    message = "Passwords do not match.";
+  } else if (error.name === "name" && error.type === "minString"){
+    message = "Name is too short, enter a valid name.";
+  } else if (error.name === "email" && error.type === "regEx"){
+    message = "The email adress entered is not valid, enter a valid email.";
+  }
+  return message;
+}
 
+
+export { getErrorMessage };
 export { loginSchema };
-export { userAccountSchema };
+export { signUpAccountSchema };

@@ -6,12 +6,18 @@ export default class Header extends Component {
 
   logUserOut(event){
     event.preventDefault();
+    if(!Meteor.userId()){
+      throw new Meteor.Error('not-logged-in', 'User has to be logged in to logout');
+    }
     Meteor.logout(err => {
       if(err){
         Session.set("LogoutError", err.reason || "Unknown error");
       }
+      else {
+        console.log("Logout Successful.");
+      }
     });
-    console.log("logout in process");
+
   }
 
   render() {

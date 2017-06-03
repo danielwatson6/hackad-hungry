@@ -31,7 +31,6 @@ export default class App extends TrackerReact(React.Component) {
   }
 
 
-
   render(){
     if(!Meteor.userId()){
       FlowRouter.go('/splash');

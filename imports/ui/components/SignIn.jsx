@@ -1,56 +1,84 @@
 import { Meteor } from 'meteor/meteor';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { Session } from 'meteor/session';
 import { SimpleSchema }  from 'meteor/aldeed:simple-schema';
 //----------------------USER DEFINED IMPORTS----------------------
-import { userAccountSchema,  loginSchema } from '/imports/schemas/userAccountsSchema.jsx';
+import { loginSchema, getErrorMessage } from '/imports/schemas/userAccountsSchema.jsx';
 import FacebookLogin from '/imports/ui/components/layouts/FacebookLogin.jsx';
 import Footer from '/imports/ui/components/Footer.jsx';
-
-
+import Errors from '/imports/ui/components/Errors/Errors.jsx';
 
 
 export default class SignIn extends Component {
+
+  constructor(){
+    super();
+    this.state = {
+      errors: []
+    };
+  }
 
   handleSignin(event){
     event.preventDefault();
     const email = ReactDOM.findDOMNode(this.refs.emailField).value.trim();
     const password = ReactDOM.findDOMNode(this.refs.passwordField).value.trim();
+    const thisTmp = this;
 
     loginDetails = {
       email: email,
       password: password
     }
-    loginSchema.validate(loginDetails);
 
-    Meteor.loginWithPassword(email, password, function (err) {
-      if(err){
-        console.log(err.reason);
-        ReactDOM.findDOMNode(this.refs.passwordField).value = '';
-        Session.set('LoginError', err.reason || "Unknown error");
-      }
-      else {
-        console.log("User successfully logged in");
-        FlowRouter.go('/');
-      }
-    });
+    try {
+      loginSchema.validate(loginDetails);
+
+      Meteor.loginWithPassword(email, password, function (err) {
+        if(err){
+          console.log(err.reason);
+          ReactDOM.findDOMNode(thisTmp.refs.passwordField).value = '';
+          Session.set('LoginError', err.reason || "Unknown error");
+        }
+        else {
+          Session.set("LoginSuccess", "Login Successful.");
+          FlowRouter.go('/');
+        }
+      });
+    }
+    catch (error){
+      let message = "";
+      const errorMessages = [];
+      error.details.forEach((e)=> {
+        message = getErrorMessage(e);
+        if(message !== "")
+          errorMessages.push(message);
+      });
+      this.setState({
+        errors: errorMessages
+      });
+    }
+
+  }
+
+  renderErrors(){
+    if(this.state.errors.length){
+      return <Errors title="Login Failed" errors={this.state.errors} />;
+    }
   }
 
   render(){
     return (
       <div className="container-fluid pt-5" id="logincontainer">
+        {this.renderErrors()}
         <FacebookLogin title="Login" buttonTitle="Sign in with Facebook"/>
         <form name="signin">
           <div className="input-group pt-3 justify-content-center">
-            <span className="input-group-addon" id="email-addon"><i className="fa fa-envelope" aria-hidden="true"></i></span>
-            <input type="email" className="form-control"  id="email-input" aria-describedby="email-addon" placeholder="johndoe@example.com" ref="emailField"/>
-          </div><br />
+            <span className="input-group-addon text-purple" id="email-addon"><i className="fa fa-envelope" aria-hidden="true"></i></span>
+            <input type="email" className="form-control"  id="email-input" aria-describedby="email-addon" placeholder="Email" ref="emailField"/>
+          </div>
           <div className="input-group justify-content-center pt-3">
-            <span className="input-group-addon" id="password-addon"><i className="fa fa-lock" aria-hidden="true"></i></span>
+            <span className="input-group-addon text-purple" id="password-addon"><i className="fa fa-lock" aria-hidden="true"></i></span>
             <input type="password" className="form-control" id="password-input" aria-describedby="password-addon" placeholder="Password" ref="passwordField"/>
           </div>
-          <br/>
           <br />
           <br/>
           <section className="section" id="section">
@@ -72,4 +100,5 @@ export default class SignIn extends Component {
       </div>
     );
   }
+
 }

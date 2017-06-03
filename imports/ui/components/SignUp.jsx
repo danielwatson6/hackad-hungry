@@ -4,12 +4,20 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom'
 import { Session } from 'meteor/session';
 //----------------------USER DEFINED IMPORTS----------------------
+import Errors from '/imports/ui/components/Errors/Errors.jsx';
 import FacebookLogin from '/imports/ui/components/layouts/FacebookLogin.jsx';
 import Footer from '/imports/ui/components/Footer.jsx';
-import { userAccountSchema } from '/imports/schemas/userAccountsSchema.jsx';
-import Layout from '/imports/ui/components/layouts/Layout.jsx';
+import { getErrorMessage, signUpAccountSchema } from '/imports/schemas/userAccountsSchema.jsx';
+
 
 export default class SignUp extends Component{
+
+  constructor(){
+    super();
+    this.state = {
+      errors: []
+    }
+  }
 
   handlePasswordSignUp(event){
     event.preventDefault();
@@ -25,7 +33,7 @@ export default class SignUp extends Component{
       confirmPassword: confirmPassword
     }
     try {
-      userAccountSchema.validate(accountDetails);
+      signUpAccountSchema.validate(accountDetails);
       Accounts.createUser({
         email: accountDetails.email,
         password: accountDetails.password,
@@ -43,48 +51,45 @@ export default class SignUp extends Component{
     }
     catch(error){ //Catch the validation errors
       let message = "";
+      const errorMessages = [];
       error.details.forEach(function(e){
-        if(e.name === "password" && e.type === "minString"){
-          message = "Password is too short, password has to be at least 7 characters.";
-          Session.set("passwordError", message);
-        }
-        else if(e.name === "confirmPassword" && e.type === "passwordMismatch") {
-          message = "Passwords do not match.";
-          Session.set("passwordError", message);
-        } else if (e.name === "name" && e.type === "minString"){
-          message = "Name is too short, enter a valid name.";
-          Session.set("nameEror", message);
-        } else if (e.name === "email" && e.type === "regEx"){
-          message = "The email adress entered is not valid, enter a valid email.";
-          Session.set("emailError", message);
-        }
-        console.log(message);
+        message = getErrorMessage(e);
+        if(message !== "")
+          errorMessages.push(message);
       });
-
+      this.setState({
+        errors: errorMessages
+      });
     }
 
   } //close handlePasswordSignUp
 
+  renderErrors(){
+    if(this.state.errors.length){
+      return <Errors title="Account Creation Failed" errors={this.state.errors} />;
+    }
+  }
+
   render(){
     return (
       <div className="container-fluid pt-5">
+        {this.renderErrors()}
         <FacebookLogin title="Sign Up" buttonTitle="Create Account with Facebook"/>
-        {/*<Layout /><br/><br/>*/}
         <form name="signup">
           <div className="input-group justify-content-center pt-0">
-            <span className="input-group-addon"><i className="fa fa-user" aria-hidden="true"></i></span>
-            <input type="text" className="form-control" id="name-input" placeholder="John Doe" ref="name"/>
+            <span className="input-group-addon text-purple"><i className="fa fa-user" aria-hidden="true"></i></span>
+            <input type="text" className="form-control" id="name-input" placeholder="Full Name" ref="name"/>
           </div>
           <div className="input-group justify-content-center pt-4">
-            <span className="input-group-addon" id="email-addon"><i className="fa fa-envelope" aria-hidden="true"></i></span>
-            <input type="email" className="form-control"  id="email-input" aria-describedby="email-addon" placeholder="johndoe@example.com" ref="email"/>
+            <span className="input-group-addon text-purple" id="email-addon"><i className="fa fa-envelope" aria-hidden="true"></i></span>
+            <input type="email" className="form-control"  id="email-input" aria-describedby="email-addon" placeholder="Email" ref="email"/>
           </div>
           <div className="input-group justify-content-center pt-4">
-            <span className="input-group-addon" id="password-addon"><i className="fa fa-lock" aria-hidden="true"></i></span>
+            <span className="input-group-addon text-purple" id="password-addon"><i className="fa fa-lock" aria-hidden="true"></i></span>
             <input type="password" className="form-control" id="password-input" aria-describedby="password-addon" placeholder="Password" ref="password"/>
           </div>
           <div className="input-group justify-content-center pt-4">
-            <span className="input-group-addon" id="confirmPassword-addon"><i className="fa fa-lock" aria-hidden="true"></i></span>
+            <span className="input-group-addon text-purple" id="confirmPassword-addon"><i className="fa fa-lock" aria-hidden="true"></i></span>
             <input type="password" className="form-control" id="confirmPassword-input" aria-describedby="confirmPassword-addon" placeholder="Confirm Password" ref="confirmPassword"/>
           </div>
           <section className="section pt-5">
@@ -98,7 +103,7 @@ export default class SignUp extends Component{
               Already have an account? <a href="/signin" className="text-primary">Sign in.</a>
             </figcaption>
           </section>
-      </form>
+        </form>
         <Footer />
       </div>
     );
