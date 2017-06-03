@@ -1,18 +1,20 @@
+
+
 Accounts.onCreateUser((options, user) => {
   let profile = {};
   if(!user.services.facebook){ //if the user is using password as their signup method
     profile = {
-      avatar_url: "/public/images/user-avatar.png", //use basic/generic avatar image
+      name:options.name.replace(/\b\w/g, l => l.toUpperCase()), //Capitalize user's name
       email: options.email,
-      name:options.name,
+      avatar_url: "/public/images/user-avatar.png", //use basic/generic avatar image
     };
   }
   else if (user.services.facebook){ //else if user signs-up via facebook
     avatarUrl = "http://graph.facebook.com/"+user.services.facebook.id+"/picture?type=small"; //get user's facebook profile pic url
     profile = {
-      avatar_url: avatarUrl,
-      email: user.services.facebook.email,
       name: user.services.facebook.name,
+      email: user.services.facebook.email,
+      avatar_url: avatarUrl,
     };
   }
 

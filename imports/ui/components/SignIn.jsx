@@ -6,7 +6,7 @@ import { SimpleSchema }  from 'meteor/aldeed:simple-schema';
 import { loginSchema, getErrorMessage } from '/imports/schemas/userAccountsSchema.jsx';
 import FacebookLogin from '/imports/ui/components/layouts/FacebookLogin.jsx';
 import Footer from '/imports/ui/components/Footer.jsx';
-import Errors from '/imports/ui/components/Errors/Errors.jsx';
+import Modal from '/imports/ui/components/Alerts/Modal.jsx';
 
 
 export default class SignIn extends Component {
@@ -14,8 +14,18 @@ export default class SignIn extends Component {
   constructor(){
     super();
     this.state = {
-      errors: []
+      errors: [],
+      successes: []
     };
+
+  }
+
+  renderAlerts(){
+    if(this.state.errors.length){
+      return <Modal title="Login Failed" contents={this.state.errors} alertType="error" />;
+    } else if(this.state.successes.length){
+      return <Modal title="Login Successful" contents={this.state.successes} alertType="success" />
+    }
   }
 
   handleSignin(event){
@@ -28,24 +38,30 @@ export default class SignIn extends Component {
       email: email,
       password: password
     }
-
+    let message = "";
     try {
       loginSchema.validate(loginDetails);
-
       Meteor.loginWithPassword(email, password, function (err) {
         if(err){
-          console.log(err.reason);
+          message = err.reason || "Unknown error";
+          thisTmp.setState({
+            errors: [message]
+          });
           ReactDOM.findDOMNode(thisTmp.refs.passwordField).value = '';
-          Session.set('LoginError', err.reason || "Unknown error");
         }
         else {
-          Session.set("LoginSuccess", "Login Successful.");
-          FlowRouter.go('/');
+          message = "Login Successful."
+          thisTmp.setState({
+            successes: [message]
+          });
+          Meteor.setTimeout(function () {
+            FlowRouter.go('/');
+          }, 1000*2);
+
         }
       });
     }
     catch (error){
-      let message = "";
       const errorMessages = [];
       error.details.forEach((e)=> {
         message = getErrorMessage(e);
@@ -55,20 +71,16 @@ export default class SignIn extends Component {
       this.setState({
         errors: errorMessages
       });
+      ReactDOM.findDOMNode(thisTmp.refs.passwordField).value = '';
     }
 
   }
 
-  renderErrors(){
-    if(this.state.errors.length){
-      return <Errors title="Login Failed" errors={this.state.errors} />;
-    }
-  }
 
   render(){
     return (
       <div className="container-fluid pt-5" id="logincontainer">
-        {this.renderErrors()}
+        {this.renderAlerts()}
         <FacebookLogin title="Login" buttonTitle="Sign in with Facebook"/>
         <form name="signin">
           <div className="input-group pt-3 justify-content-center">

@@ -16,7 +16,6 @@ export default class App extends TrackerReact(React.Component) {
       subscription: {
         campaigns: Meteor.subscribe('campaigns'),
         restaurants: Meteor.subscribe('restaurants'),
-        names: Meteor.subscribe('users.name', Meteor.userId())
       }
     }
   }
@@ -26,7 +25,6 @@ export default class App extends TrackerReact(React.Component) {
     // stop / unsubscribe from each data subscription
     this.state.subscription.campaigns.stop();
     this.state.subscription.restaurants.stop();
-    this.state.subscription.names.stop();
 
   }
 

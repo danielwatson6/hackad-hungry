@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom'
 import { Session } from 'meteor/session';
 //----------------------USER DEFINED IMPORTS----------------------
-import Errors from '/imports/ui/components/Errors/Errors.jsx';
+import Modal from '/imports/ui/components/Alerts/Modal.jsx';
 import FacebookLogin from '/imports/ui/components/layouts/FacebookLogin.jsx';
 import Footer from '/imports/ui/components/Footer.jsx';
 import { getErrorMessage, signUpAccountSchema } from '/imports/schemas/userAccountsSchema.jsx';
@@ -15,23 +15,26 @@ export default class SignUp extends Component{
   constructor(){
     super();
     this.state = {
-      errors: []
+      errors: [],
+      successes: []
     }
   }
 
   handlePasswordSignUp(event){
     event.preventDefault();
-    console.log('SignUp Button Pressed');
     const name = ReactDOM.findDOMNode(this.refs.name).value.trim();
     const email = ReactDOM.findDOMNode(this.refs.email).value.trim();
     const password = ReactDOM.findDOMNode(this.refs.password).value.trim();
     const confirmPassword = ReactDOM.findDOMNode(this.refs.confirmPassword).value.trim();
+    const thisTmp = this;
+
     accountDetails = {
       name: name,
       email: email,
       password: password,
       confirmPassword: confirmPassword
-    }
+    };
+    let message = "";
     try {
       signUpAccountSchema.validate(accountDetails);
       Accounts.createUser({
@@ -40,17 +43,25 @@ export default class SignUp extends Component{
         name: accountDetails.name
       }, err => {
         if(err){
-          console.log(err.reason);
-          Session.set("AccountCreationError", err.reason || "Unknown error")
+          message = err.reason || "Unknown error";
+          thisTmp.setState({
+            errors: [message]
+          });
+          ReactDOM.findDOMNode(thisTmp.refs.password).value = '';
+          ReactDOM.findDOMNode(thisTmp.refs.confirmPassword).value = '';
         }
         else {
-          Session.set("AccountCreationSuccess", "Account Created Successfully.");
-          FlowRouter.go("/");
+          message = "Account Created Successfully.";
+          thisTmp.setState({
+            successes: [message]
+          })
+          Meteor.setTimeout(function () {
+            FlowRouter.go('/');
+          }, 1000*2);
         }
       }); //Close Accounts.createUser();
     }
     catch(error){ //Catch the validation errors
-      let message = "";
       const errorMessages = [];
       error.details.forEach(function(e){
         message = getErrorMessage(e);
@@ -60,20 +71,24 @@ export default class SignUp extends Component{
       this.setState({
         errors: errorMessages
       });
+      ReactDOM.findDOMNode(thisTmp.refs.password).value = '';
+      ReactDOM.findDOMNode(thisTmp.refs.confirmPassword).value = '';
     }
 
   } //close handlePasswordSignUp
 
-  renderErrors(){
+  renderAlerts(){
     if(this.state.errors.length){
-      return <Errors title="Account Creation Failed" errors={this.state.errors} />;
+      return <Modal title="Account Creation Failed" contents={this.state.errors} alertType="error" />;
+    } else if(this.state.successes.length){
+      return <Modal title="Account Creation Successful" contents={this.state.successes} alertType="success" />
     }
   }
 
   render(){
     return (
       <div className="container-fluid pt-5">
-        {this.renderErrors()}
+        {this.renderAlerts()}
         <FacebookLogin title="Sign Up" buttonTitle="Create Account with Facebook"/>
         <form name="signup">
           <div className="input-group justify-content-center pt-0">

@@ -2,31 +2,32 @@ import { Meteor } from 'meteor/meteor';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 //----------------------USER DEFINED IMPORTS----------------------
-import ErrorAlert from '/imports/ui/components/Errors/ErrorAlert.jsx';
+import Alert from '/imports/ui/components/Alerts/Alert.jsx';
 
 
 export default class Errors extends Component{
   constructor(props){
     super(props);
   }
-  showToggle(){
-    const modal = ReactDOM.findDOMNode(this.refs.errorModal);
+  showModal(){
+    const modal = ReactDOM.findDOMNode(this.refs.alertModal);
     $(modal).modal('toggle');
   }
   componentDidMount(){
-    this.showToggle();
+    this.showModal();
   }
   componentDidUpdate(){
-    this.showToggle();
+    this.showModal();
   }
 
 
   render(){
     const title = this.props.title;
-    const errors = this.props.errors || [];
+    const contents = this.props.contents || [];
+    const alertType = this.props.alertType;
 
     return (
-      <div className="modal fade" ref="errorModal">
+      <div className="modal fade in" ref="alertModal">
         <div className="modal-dialog modal-sm" role="document">
           <div className="modal-content">
             <div className="modal-header">
@@ -34,8 +35,8 @@ export default class Errors extends Component{
             </div>
             <div className="modal-body">
               <ul className="list-unstyled">
-                {errors.map((err, index)=>{
-                  return <li key={index}><ErrorAlert error={err} /></li>
+                {contents.map((content, index)=>{
+                  return <li key={index}><Alert content={content} type={alertType}/></li>
                 })}
               </ul>
             </div>
