@@ -1,12 +1,11 @@
 import React, { Component} from 'react';
-import { createContainer } from 'meteor/react-meteor-data'
 import PropTypes from 'prop-types';
 
-import AccountsUIWrapper from './AccountsUIWrapper.jsx'
+import AccountsUIWrapper from '/imports/ui/components/layouts/AccountsUIWrapper.jsx';
 
 
 // Parent component - router will render everything inside
-class Layout extends Component {
+export default class Layout extends Component {
 
   render() {
     let content = (<AccountsUIWrapper />)
@@ -36,17 +35,11 @@ class Layout extends Component {
       )
     }
 
-    return (<div id="App">{content}</div>)
+    return (<div id="FBLayout">{content}</div>)
   }
 }
 
-Layout.propTypes = {
-  content: PropTypes.func.isRequired,
-  currentUser: PropTypes.object,
-}
-
-export default createContainer(() => {
-  return {
-    currentUser: Meteor.user(),
-  }
-}, Layout)
+// Layout.propTypes = {
+//   content: PropTypes.func.isRequired,
+//   currentUser: PropTypes.object,
+// }

@@ -1,25 +1,45 @@
 import { Meteor } from 'meteor/meteor';
-import React, { Component } from 'react';
-import { createContainer } from 'meteor/react-meteor-data';
-import PropTypes from 'prop-types';
+import React from 'react';
+import { Session } from 'meteor/session';
+import TrackerReact from 'meteor/ultimatejs:tracker-react';
+//----------------------USER DEFINED IMPORTS----------------------
+import Campaigns from '/imports/api/campaigns';
+import Restaurants from '/imports/api/restaurants';
+import FakeLayout from '/imports/ui/components/fakelayout.jsx';
+import Header from '/imports/ui/components/Header.jsx';
+import { userAccountSchema,  loginSchema } from '/imports/schemas/userAccountsSchema.jsx';
 
-import AccountsUIWrapper from './AccountsUIWrapper.jsx';
-import CampaignsCollection from '../../api/campaigns.js';
-import Header from './Header.jsx';
+export default class App extends TrackerReact(React.Component) {
+  constructor() {
+    super();
+    this.state = {
+      subscription: {
+        campaigns: Meteor.subscribe('campaigns'),
+        restaurants: Meteor.subscribe('restaurants'),
+      }
+    }
+  }
 
-class App extends Component{
+
+  componentWillUnmount(){
+    // stop / unsubscribe from each data subscription
+    this.state.subscription.campaigns.stop();
+    this.state.subscription.restaurants.stop();
+
+  }
+
+
   render(){
+    if(!Meteor.userId()){
+      FlowRouter.go('/splash');
+    }
+
     return (
       <div>
-        <Header />
-        <h1> Main Page </h1>
+        <h1 className="text-center text-uppercase">home</h1>
+        <FakeLayout />
       </div>
     );
   }
-}
 
-export default createContainer(()=>{
-    return {
-      campaigns: CampaignsCollection.find({}).fetch()
-    };
-}, App);
+}

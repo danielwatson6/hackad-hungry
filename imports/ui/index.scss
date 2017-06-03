@@ -1,4 +1,5 @@
 @import "./vendor/bootstrap/scss/bootstrap.scss";
+@import url('https://fonts.googleapis.com/css?family=Open+Sans|Open+Sans+Condensed:300|PT+Sans|Roboto+Condensed|Alegreya+Sans+SC:500|Alegreya+Sans:500');
 
 .CampaignItem {
   display: block;
@@ -7,74 +8,236 @@
   border-bottom: 1px solid #eee;
 }
 
-.Header {
-  background: #cf8ffc;
-  background-image: linear-gradient(to bottom, #dac9ef, #e6deed 100%);
-  padding: 20px 15px 15px 15px;
-  position: relative;
-  color: #000;
-}
-
-.Header h1 {
-  font-family: 'Lato', sans-serif;
-  text-align: center;
+#menu-link:hover, #menu-link {
+  color:white;
+  text-decoration: none;
   font-weight: bold;
-  text-transform: uppercase;
-  font-size: 30px;
+  padding:10px;
 }
 
-body {
-  font-family: sans-serif;
-  background-color: #cf8ffc;
-  background-image: linear-gradient(to bottom, #602c7c, #8f8291 100%);
-  background-attachment: fixed;
+.navbar{
+  padding:0rem 1rem;
+}
 
-  position: absolute;
-  top: 0;
+#menu-button{
+  position: relative;
+  left:-15px;
+  padding:5px;
+  border:none;
+
+  .icon-bar{
+    width:15px;
+  }
+}
+
+#menu-button:focus, #menu-button:hover {
+    background-color: #58108e;
+}
+
+.navbar-inverse .navbar-nav > .active > a{
+  background-color: #450e6f;
+}
+
+#brand{
+  padding-top:13px;
+  padding-right:-5px;
+  position:relative;
+  right: -100px;
+}
+
+
+#logincontainer{
+  padding-top:10px;
+}
+
+p{
+  text-align: justify;
+}
+
+h1{
+  font-family:'PT Condensed', sans-serif;
+  font-weight:300;
+  text-align: justify;
+}
+
+#login-buttons .login-image, .login-form.login-password-form, .or{
+  display:none;
+
+}
+
+#login-buttons .login-button, .accounts-dialog .login-button, #login-btn, #login-btn-splash {
+   color:#FFF;
+   background:#58108e;
+   line-height:1.25;
+   vertical-align:middle;
+   border:none;
+   font-size:0.92em;
+   padding:8px;
+   text-align:center;
+   border-radius: 4px;
+}
+
+#login-buttons .login-button:hover, .accounts-dialog .login-button:hover, #login-btn:hover, #nav-header:hover {
+  color:#FFF;
+  background:#58108e;
+}
+
+#nav-header{
+  color:#FFF;
+  background:#58108e;
+}
+
+#header li > a:not(.active) {
+    color: white;
+}
+
+#login-buttons .text-besides-image{
+  margin: 0 auto;
+}
+
+
+#login-btn, .login-button, #login-btn-splash{
+  width:225px;
+  max-width:225px;
+  height:30px;
+  border: none;
+  font-weight: bold;
+  position: relative;
+  display: block;
+  margin:0 auto;
+}
+
+#login-btn-splash, #login-btn-splah:hover {
+  color:#58108e;
+  background: #FFF;
+}
+
+.form-control {
+  width:200px;
+  max-width:200px;
+  height:30px;
+  border: none;
+}
+
+
+.copyright {
+  font-family: 'PT Sans', sans-serif;
+  font-weight: 300;
+  position: fixed;
+  right: 0;
   bottom: 0;
   left: 0;
-  right: 0;
-
-  padding: 0;
-  margin: 0;
-
-  font-size: 14px;
-}
-
-.container {
-  max-width: 600px;
-  margin: 0 auto;
-  min-height: 100%;
-  background: white;
+  clear:both;
 }
 
 
-#login-buttons {
-  display: block;
+#header-container{
+  padding-left:0px;
+  padding-right:0px;
 }
 
-ul {
-  margin: 0;
-  padding: 0;
-  background: white;
-}
-
-
-li {
-  position: relative;
-  list-style: none;
-  padding: 15px;
-  border-bottom: #eee solid 1px;
-}
-
-
-@media (max-width: 600px) {
-  li {
-    padding: 12px 15px;
+body, html, #react-root{
+  height:100%;
+  min-height:100%;
+  margin:0;
+  #splash{
+    background: #58108e;
+    height:100%;
   }
+}
 
-  .search {
-    width: 150px;
-    clear: both;
+
+#welcome{
+  font-family:'Helvetica Neue', sans-serif;
+  position:relative;
+  padding:0;
+  margin:0;
+  h1{
+    font-weight:600;
+    font-family:'Alegreya Sans SC' , sans-serif;
   }
+}
+
+#welcome h2 {
+    font-size: 1.50rem;
+    margin-bottom:  0;
+}
+
+#slogan {
+    font-size: 1rem;
+    font-weight: 300;
+}
+
+.hungry{
+  display:inline;
+}
+
+h2.hungry{
+  font-weight:300;
+  font-style: italic;
+}
+
+#splash-icon{
+  margin-top:30px;
+  margin-left:35px;
+}
+
+input.form-control.item.mx-auto{
+  border:1px solid #dedbdb;
+  border-radius:4px;
+}
+
+.or-separator {
+  color:#b7bec3;
+  .hline{
+    text-decoration: line-through;
+  }
+}
+
+#email-addon, #email-input{
+  display:inline-block;
+  margin:0;
+}
+
+.input-group-addon{
+  width:2.5rem;
+  border-right: none;
+  background:inherit;
+}
+
+#name-input, #email-input, #password-input, #confirmPassword-input {
+    border: 1px solid #dcd7d7;
+    border-left:none;
+}
+
+#email-addon {
+    padding-top: 7px;
+}
+
+
+.text-purple{
+  color:#58108e;
+}
+
+#section{
+  padding-bottom:40px;
+}
+
+.error-message{
+  font-size:0.82rem;
+}
+
+.button-purple, .button-purple:hover{
+  background:#58108e;
+  color:#fff;
+  border-radius: 4px;
+}
+
+.button-purple-inverse, .button-purple-inverse:hover{
+  background:#fff;
+  color:#58108e;
+}
+
+.alert{
+  z-index:10;
 }
