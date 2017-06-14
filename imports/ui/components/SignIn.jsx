@@ -20,14 +20,6 @@ export default class SignIn extends Component {
 
   }
 
-  renderAlerts(){
-    if(this.state.errors.length){
-      return <Modal title="Login Failed" contents={this.state.errors} alertType="error" />;
-    } else if(this.state.successes.length){
-      return <Modal title="Login Successful" contents={this.state.successes} alertType="success" />
-    }
-  }
-
   handleSignin(event){
     event.preventDefault();
     const email = ReactDOM.findDOMNode(this.refs.emailField).value.trim();
@@ -52,11 +44,12 @@ export default class SignIn extends Component {
         else {
           message = "Login Successful."
           thisTmp.setState({
-            successes: [message]
+            successes: [message],
+            errors: []
           });
           Meteor.setTimeout(function () {
             FlowRouter.go('/');
-          }, 1000*2);
+          }, 1000*3);
 
         }
       });
@@ -76,6 +69,13 @@ export default class SignIn extends Component {
 
   }
 
+  renderAlerts(){
+    if(this.state.errors.length){
+      return <Modal title="Login Failed" contents={this.state.errors} alertType="error" />;
+    } else if(this.state.successes.length){
+      return <Modal title="Login Successful" contents={this.state.successes} alertType="success" />
+    }
+  }
 
   render(){
     return (

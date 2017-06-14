@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 import Alert from '/imports/ui/components/Alerts/Alert.jsx';
 
 
-export default class Errors extends Component{
+export default class Modal extends Component{
   constructor(props){
     super(props);
   }
@@ -19,7 +19,6 @@ export default class Errors extends Component{
   componentDidUpdate(){
     this.showModal();
   }
-
 
   render(){
     const title = this.props.title;
