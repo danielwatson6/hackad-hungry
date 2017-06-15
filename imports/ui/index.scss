@@ -12,25 +12,14 @@
   background: #58108e;
 }
 
-.navbar{
-  padding:0rem 1rem;
-}
 
-#menu-button{
-  border:none;
-}
-
-#menu-button:focus, #menu-button:hover {
-    background-color: #58108e;
-}
-
-#nav-header{
+#nav-xs-header, #nav-lg-header{
   height:7%;
   -webkit-box-shadow:0px 2px 2px rgba(52,52,52,0.5);
   box-shadow:0px 2px 2px rgba(52,52,52,0.5);
 }
 
-#nav-footer{
+#nav-xs-footer{
   height:7%;
   -webkit-box-shadow:0px -3px 3px -2px rgba(52,52,52,0.5);
   box-shadow:0px -3px 3px -2px rgba(52,52,52,0.5);
@@ -39,6 +28,17 @@
 .title-xs{
   font-family:'Helvetica Neue', sans-serif;
   font-size:1.2em;
+}
+
+#brand-lg-title{
+    font-weight: 500;
+    font-family: 'Alegreya Sans SC', sans-serif;
+    font-size:1.15em;
+}
+
+#brand-lg-text{
+    font-family:'Helvetica Neue', sans-serif;
+    font-weight:300;
 }
 
 a.nav-link {
@@ -62,7 +62,7 @@ a.nav-link.active{
 #search-xs-button{
   margin-left:-10px;
 }
-#menu-xs-button{
+#menu-xs-button, #menu-lg-button{
   margin-left:5px;
 }
 
@@ -73,13 +73,6 @@ a.nav-link.active{
 }
 
 .md-icon {font-size: 1.4em;}
-
-#brand{
-  padding-top:13px;
-  padding-right:-5px;
-  position:relative;
-  right: -100px;
-}
 
 
 #logincontainer{
@@ -265,4 +258,19 @@ input.form-control.item.mx-auto{
 .button-purple-inverse, .button-purple-inverse:hover{
   background:#fff;
   color:#58108e;
+}
+
+.text-under-button {
+    font-size: 0.85em;
+    font-family: 'Helvetica Neue',sans-serif;
+    font-weight: 200;
+    margin-top: 3px;
+    text-align:center;
+}
+
+.active-button {
+    color: #58108e;
+    background: #fff;
+    border: none;
+    border-radius: 0;
 }
