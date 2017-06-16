@@ -1,0 +1,86 @@
+/* Author: Robert Gordon
+   Date: May 21, 2017
+*/
+
+#nav-xs-header, #nav-lg-header{
+  height:7%;
+  -webkit-box-shadow:0px 2px 2px rgba(52,52,52,0.5);
+  box-shadow:0px 2px 2px rgba(52,52,52,0.5);
+}
+
+#nav-xs-footer{
+  height:7%;
+  -webkit-box-shadow:0px -3px 3px -2px rgba(52,52,52,0.5);
+  box-shadow:0px -3px 3px -2px rgba(52,52,52,0.5);
+}
+
+.title-xs{
+  font-family:'Helvetica Neue', sans-serif;
+  font-size:1.2em;
+}
+
+#brand-lg-title{
+    font-weight: 500;
+    font-family: 'Alegreya Sans SC', sans-serif;
+    font-size:1.15em;
+}
+
+#brand-lg-text{
+    font-family:'Helvetica Neue', sans-serif;
+    font-weight:300;
+}
+
+a.nav-link {
+    color: white;
+    font-size: 1.3em;
+    font-family: 'Helvetica Neue', sans-serif;
+    height:87%;
+    font-weight:500;
+    transition: border-bottom 0.5s ease-out;
+}
+
+a.nav-link.active, a.nav-link:hover, a.nav-link:focus{
+  font-size:1.35em;
+  background-color:inherit;
+  border-bottom: 3px solid #fff;
+}
+
+#search-xs-button{
+  margin-left:-10px;
+}
+#menu-xs-button, #menu-lg-button{
+  margin-left:5px;
+}
+
+#search-lg-button{
+  width:25px;
+  height:25px;
+  padding:5px;
+  background:rgba(230,230,230,1);
+}
+#search-lg-button:hover,#search-lg-button:active{
+  background:#fff;
+}
+
+#search-form {
+    margin-left: 0;
+    margin-right: 0;
+    padding-top: 12px;
+    padding-left: 50px;
+}
+
+#search-input {
+    height: 28px;
+    width: 40%;
+    border-radius:5px;
+    font-family:'Open Sans', sans-serif;
+    font-size:1.1em;
+    background: rgba(230,230,230,1);
+    -webkit-transition: width 1s ease-out;
+    transition: width 1s ease-out;
+}
+
+#search-input:hover, #search-input:focus{
+    width:50%;
+    background:white;
+}

@@ -1,5 +1,8 @@
-@import "./vendor/bootstrap/scss/bootstrap.scss";
+@import "../vendor/bootstrap/scss/bootstrap.scss";
 @import url('https://fonts.googleapis.com/css?family=Open+Sans|Open+Sans+Condensed:300|PT+Sans|Roboto+Condensed|Alegreya+Sans+SC:500|Alegreya+Sans:500');
+/*------------------------------USER STYLES------------------------------*/
+@import "./navigation.scss";
+@import "./login.scss";
 
 .CampaignItem {
   display: block;
@@ -13,71 +16,8 @@
 }
 
 
-#nav-xs-header, #nav-lg-header{
-  height:7%;
-  -webkit-box-shadow:0px 2px 2px rgba(52,52,52,0.5);
-  box-shadow:0px 2px 2px rgba(52,52,52,0.5);
-}
-
-#nav-xs-footer{
-  height:7%;
-  -webkit-box-shadow:0px -3px 3px -2px rgba(52,52,52,0.5);
-  box-shadow:0px -3px 3px -2px rgba(52,52,52,0.5);
-}
-
-.title-xs{
-  font-family:'Helvetica Neue', sans-serif;
-  font-size:1.2em;
-}
-
-#brand-lg-title{
-    font-weight: 500;
-    font-family: 'Alegreya Sans SC', sans-serif;
-    font-size:1.15em;
-}
-
-#brand-lg-text{
-    font-family:'Helvetica Neue', sans-serif;
-    font-weight:300;
-}
-
-a.nav-link {
-    color: white;
-    font-size: 1.3em;
-    font-family: 'Helvetica Neue', sans-serif;
-}
-
-a.nav-link.active{
-  border-bottom: 3px solid #fff;
-  font-weight:600;
-  font-size:1.35em;
-}
-.nav > li > a:hover, .nav > li > a:focus {
-    background: inherit;
-    border-bottom: 3px solid #fff;
-    font-size:1.35em;
-    font-weight:600;
-}
-
-#search-xs-button{
-  margin-left:-10px;
-}
-#menu-xs-button, #menu-lg-button{
-  margin-left:5px;
-}
-
-#search-lg-button{
-  width:25px;
-  height:25px;
-  padding:5px;
-}
-
 .md-icon {font-size: 1.4em;}
 
-
-#logincontainer{
-  padding-top:10px;
-}
 
 p{
   text-align: justify;
@@ -89,52 +29,7 @@ h1{
   text-align: justify;
 }
 
-#login-buttons .login-image, .login-form.login-password-form, .or{
-  display:none;
-
-}
-
-#login-buttons .login-button, .accounts-dialog .login-button, #login-btn, #login-btn-splash {
-   color:#FFF;
-   background:#58108e;
-   line-height:1.25;
-   vertical-align:middle;
-   border:none;
-   font-size:0.92em;
-   padding:8px;
-   text-align:center;
-   border-radius: 4px;
-}
-
-#login-buttons .login-button:hover, .accounts-dialog .login-button:hover, #login-btn:hover {
-  color:#FFF;
-  background:#58108e;
-}
-
-
-
-#login-buttons .text-besides-image{
-  margin: 0 auto;
-}
-
-
-#login-btn, .login-button, #login-btn-splash{
-  width:225px;
-  max-width:225px;
-  height:30px;
-  border: none;
-  font-weight: bold;
-  position: relative;
-  display: block;
-  margin:0 auto;
-}
-
-#login-btn-splash, #login-btn-splah:hover {
-  color:#58108e;
-  background: #FFF;
-}
-
-.form-control {
+.form-control:not(#search-input) {
   width:200px;
   max-width:200px;
   height:30px;

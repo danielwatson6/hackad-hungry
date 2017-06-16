@@ -1,0 +1,52 @@
+/* Author: Robert Gordon
+   Date: May 21, 2017
+*/
+
+#logincontainer{
+  padding-top:10px;
+}
+
+#login-buttons .login-image, .login-form.login-password-form, .or{
+  display:none;
+
+}
+
+#login-buttons .login-button, .accounts-dialog .login-button, #login-btn, #login-btn-splash {
+   color:#FFF;
+   background:#58108e;
+   line-height:1.25;
+   vertical-align:middle;
+   border:none;
+   font-size:0.92em;
+   padding:8px;
+   text-align:center;
+   border-radius: 4px;
+}
+
+#login-buttons .login-button:hover, .accounts-dialog .login-button:hover, #login-btn:hover {
+  color:#FFF;
+  background:#58108e;
+}
+
+
+
+#login-buttons .text-besides-image{
+  margin: 0 auto;
+}
+
+
+#login-btn, .login-button, #login-btn-splash{
+  width:225px;
+  max-width:225px;
+  height:30px;
+  border: none;
+  font-weight: bold;
+  position: relative;
+  display: block;
+  margin:0 auto;
+}
+
+#login-btn-splash, #login-btn-splah:hover {
+  color:#58108e;
+  background: #FFF;
+}

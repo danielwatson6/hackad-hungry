@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import Modal from '/imports/ui/components/Alerts/Modal.jsx';
-
 
 export default class Navigation extends Component {
   constructor(){
@@ -34,6 +34,9 @@ export default class Navigation extends Component {
 
   handleSearch(event){
     event.preventDefault();
+    console.log("Search button pressed");
+    const query = ReactDOM.findDOMNode(this.refs.searchInput).value.trim();
+    console.log(query);
   }
 
   render() {
@@ -70,7 +73,7 @@ export default class Navigation extends Component {
           </div>
           <div className="col-xs-3 visible-xs-block h-100">
             <button type="button" className="btn text-center button-purple border-0 w-100 h-100">
-              <i aria-hidden="true" className="fa fa-check md-icon"></i>
+              <i aria-hidden="true" className="fa fa-clock-o md-icon"></i>
               <p className="text-under-button">Closing</p>
             </button>
           </div>
@@ -78,20 +81,42 @@ export default class Navigation extends Component {
 
         {/* Desktop Screen Navigation Bar */}
         <div id="nav-lg-header" className="row fixed-top visible-sm-block visible-md-block visible-lg-block text-white bg-purple align-items-center">
-          <div className="col-sm-3 visible-sm-block visible-md-block visible-lg-block h-100 ml-5">
+          <div className="col-sm-1 col-lg-1 visible-sm-block visible-md-block visible-lg-block h-100 ml-5">
             <button type="button" className="btn button-purple text-center border-0 h-100 mr-2" id="menu-lg-button">
               <i aria-hidden="true" className="fa fa-bars fa-2x"></i>
             </button>
-            <p className="nav-text hungry" id="brand-lg-text">hungry</p><h6 className="nav-text hungry" id="brand-lg-title">@NYUAD</h6>
+
           </div>
-          <div className="col-sm-5 visible-sm-block visible-md-block visible-lg-block">
-            <div className="navbar-nav">
-              <a href="#" className="nav-link active">Home</a>
-              <a href="#" className="nav-link">Trending Orders</a>
-              <a href="#" className="nav-item nav-link">Closing Orders</a>
-            </div>
+          <div className="col-sm-5 col-lg-3 visible-sm-block visible-md-block visible-lg-block navbar-toggleable-sm">
+            <ul className="nav navbar-nav w-100 nav-fill">
+              <li className="nav-item">
+                <a href="#" className="nav-link active">
+                  <i aria-hidden="true" className="fa fa-home md-icon"></i>&nbsp;
+                  Home
+                </a>
+              </li>
+              <li className="nav-item">
+                <a href="#" className="nav-link">
+                  <i aria-hidden="true" className="fa fa-bolt md-icon"></i>&nbsp;
+                  Trending
+                </a>
+              </li>
+              <li className="nav-item">
+                <a href="#" className="nav-link">
+                  <i aria-hidden="true" className="fa fa-clock-o md-icon"></i>&nbsp;
+                  Closing
+                </a>
+              </li>
+            </ul>
           </div>
-          <div className="col-sm-4 visible-sm-block visible-md-block visible-lg-block"></div>
+          <div className="col-sm-6 col-lg-7 visible-sm-block visible-md-block visible-lg-block h-100">
+            <form className="form-inline float-right w-100 justify-content-end" id="search-form">
+              <input type="text" className="form-control mr-2" id="search-input" ref="searchInput"/>
+              <button type="submit" id="search-lg-button" className="btn button-purple-inverse rounded-circle" onClick={this.handleSearch.bind(this)}>
+                <i aria-hidden="true" className="fa fa-search md-icon"></i>
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     );
